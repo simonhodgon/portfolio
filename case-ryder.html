@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Last mile delivery experience design — Ryder — Simon Hodgon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:  #1a6bb5;
+    --red:   #c0392b;
+    --ink:   #1a1a1a;
+    --mid:   #4a4a4a;
+    --faint: #767676;
+    --rule:  #e0e0e0;
+    --bg:    #ffffff;
+    --off:   #f5f5f3;
+    --head:  'Nunito', sans-serif;
+    --body:  'Nunito', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-weight: 400; font-size: 1rem; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  .dr { display: block; font-size: 1.1rem; letter-spacing: 0.5em; color: var(--blue); font-weight: 700; line-height: 1; }
+  .dr.red { color: var(--red); }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--rule); padding: 0 max(2rem,6vw); display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-name { font-family: var(--head); font-weight: 800; font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--red); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--head); font-weight: 600; font-size: 0.9rem; letter-spacing: 0; text-transform: none; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
+  section { padding: 6rem 0; }
+
+  #hero { padding-top: calc(56px + 5rem); padding-bottom: 5rem; border-bottom: 1px solid var(--rule); }
+  .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .eyebrow { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); }
+  h1 { font-family: var(--head); font-weight: 800; font-size: clamp(3.5rem,7vw,5.5rem); line-height: 1; letter-spacing: -0.01em; color: var(--red); margin: 0.8rem 0 1.2rem; }
+  .hero-role { font-family: var(--head); font-weight: 700; font-size: 1.15rem; letter-spacing: 0; color: var(--blue); margin-top: 1rem; }
+  .hero-contact { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .hero-contact a { font-family: var(--head); font-weight: 600; font-size: 1rem; letter-spacing: 0; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .hero-contact a:hover { color: var(--blue); }
+  .hero-bio { font-size: 1rem; line-height: 1.75; font-weight: 400; }
+  .hero-bio p + p { margin-top: 1rem; }
+
+  .sh { margin-bottom: 4rem; }
+  .sh .eyebrow { margin-bottom: 0.5rem; display: block; }
+  h2 { font-family: var(--head); font-weight: 800; font-size: clamp(2rem,4vw,3rem); line-height: 1.05; letter-spacing: -0.01em; color: var(--red); }
+  h2 .b { color: var(--blue); }
+  h2 .r { color: var(--red); }
+  .sh .dr { margin-top: 1.1rem; }
+
+  #about { background: var(--off); border-top: none; border-bottom: 1px solid var(--rule); }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 3rem; }
+  .skill-item { background: var(--bg); border: 2px solid var(--blue); color: var(--blue); font-family: var(--head); font-weight: 700; font-size: 0.9rem; padding: 0.45rem 1.1rem; border-radius: 999px; letter-spacing: 0; text-transform: none; }
+  .skill-item::before { content: ''; }
+
+  #work { border-top: none; }
+
+  .case { padding-top: 0; margin-top: 0; }
+  .case-divider { text-align: center; font-size: 1rem; letter-spacing: 0.5em; color: var(--blue); font-weight: 700; padding: 3rem 0; }
+  .case:first-of-type { margin-top: 0; padding-top: 0; }
+
+
+  .case-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 3rem; }
+  .case-head > div, .case-head > .role-box { min-width: 0; }
+  .case-logo { height: 36px; max-width: 100%; object-fit: contain; object-position: left; display: block; margin-bottom: 1rem; }
+  .case-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.4rem; }
+  h3 { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blue); }
+  .case-year { font-family: var(--head); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.5rem; }
+  .role-box { background: var(--off); border: 1px solid var(--rule); border-left: 3px solid var(--blue); padding: 1.25rem 1.5rem; flex: 1; min-width: 0; }
+  .role-label { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+  .role-box p { font-size: 0.95rem; line-height: 1.65; }
+
+  .case-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .cl { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.7rem; margin-top: 2.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
+  .cl:first-child { margin-top: 0; }
+  .case-cols p { font-size: 1rem; margin-bottom: 0.75rem; line-height: 1.75; }
+  .case-cols ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .case-cols ul li { font-size: 1rem; padding-left: 1.25rem; position: relative; line-height: 1.6; }
+  .case-cols ul li::before { content: '*'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+
+  .stats { display: flex; gap: 0; border: 1px solid var(--rule); margin-top: 0.25rem; }
+  .stat { flex: 1; padding: 1rem; border-right: 1px solid var(--rule); text-align: center; }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-family: var(--head); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--blue); margin-bottom: 0.2rem; }
+  .stat-l { font-size: 0.8rem; color: var(--mid); line-height: 1.3; }
+
+
+  .img-frame-pair { background: #efefed; border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .img-frame-pair img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); cursor: pointer; transition: opacity 0.2s; }
+  .img-frame-pair img:hover { opacity: 0.85; }
+  .img-frame img { cursor: pointer; transition: opacity 0.2s; }
+  .img-frame img:hover { opacity: 0.85; }
+  .img-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: flex-start; justify-content: center; padding: 2rem; overflow-y: auto; }
+  .img-modal.open { display: flex; }
+  .img-modal img { max-width: 90vw; width: auto; height: auto; border-radius: 8px; box-shadow: 0 8px 48px rgba(0,0,0,0.5); display: block; margin: 2rem auto; }
+  .img-modal-close { position: fixed; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; font-family: var(--head); font-weight: 300; }
+  .img-exhibit { margin-top: 2rem; }
+  .img-exhibit + .img-exhibit { margin-top: 3rem; }
+  .img-quote { font-family: var(--head); font-weight: 800; font-size: clamp(1.1rem,2vw,1.35rem); color: var(--ink); line-height: 1.25; margin-bottom: 1.25rem; }
+  .img-quote::before { content: '\201C'; color: var(--blue); }
+  .img-quote::after { content: '\201D'; color: var(--blue); }
+  .img-frame { background: #efefed; border-radius: 12px; padding: 1.5rem; }
+  .img-frame img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+  .img-frame-pair { background: #efefed; border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .img-frame-pair img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+  .img-credit { font-style: italic; font-size: 0.88rem; color: var(--mid); margin-top: 0.85rem; text-align: center; }
+  .case-images { margin-top: 3.5rem; padding: 3rem; border-top: 3px solid var(--rule); background: var(--off); }
+  .case-images .img-label { font-family: var(--head); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.75rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--blue); display: block; }
+  .imgs-single img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 12px 48px rgba(0,0,0,0.14); min-height: 320px; object-fit: cover; object-position: top; }
+  .imgs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .imgs-pair img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .imgs-featured { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+  .imgs-featured .featured-main img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .imgs-featured .featured-stack { display: flex; flex-direction: column; gap: 2rem; }
+  .imgs-featured .featured-stack img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .img-cap { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; display: block; }
+
+  #other { background: var(--bg); border-top: 1px solid var(--rule); }
+  .other-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 1.5rem; background: transparent; border: none; margin-top: 3rem; }
+  .other-card { background: #ffffff; overflow: hidden; border: 1px solid var(--rule); border-radius: 8px; transition: box-shadow 0.2s, transform 0.2s; }
+  .other-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .other-card-img { width: 100%; height: 200px; object-fit: contain; object-position: center; display: block; border-bottom: 1px solid var(--rule); cursor: pointer; transition: opacity 0.2s; background: #ffffff; }
+  .other-card-img:hover { opacity: 0.85; }
+  .other-card-body { padding: 1.4rem 1.5rem 1.6rem; }
+  .other-label { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+  .other-card h4 { font-family: var(--head); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; color: var(--blue); line-height: 1.2; margin-bottom: 0.65rem; }
+  .other-card p { font-size: 0.9rem; color: var(--mid); line-height: 1.65; }
+  .other-year { font-family: var(--head); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; }
+
+  footer { padding: 5rem 0 4rem; text-align: center; }
+  footer .eyebrow { display: block; margin-bottom: 0.5rem; }
+  footer h2 { margin-bottom: 1.75rem; }
+  .footer-links { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; }
+  .footer-links a { font-family: var(--head); font-weight: 700; font-size: 1.1rem; letter-spacing: 0; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+  .fu { opacity:0; animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .d1{animation-delay:.05s} .d2{animation-delay:.15s} .d3{animation-delay:.28s} .d4{animation-delay:.4s}
+
+  @media(max-width:780px){
+    .hero-inner{grid-template-columns:1fr;gap:3rem;}
+    .case-head{grid-template-columns:1fr;}
+    .role-box{max-width:100%;min-width:0;}
+    .case-cols{grid-template-columns:1fr;gap:2.5rem;}
+    .imgs-pair,.imgs-featured{grid-template-columns:1fr;}
+    .stats{flex-wrap:wrap;}
+    .stat{flex:1 1 45%;border-bottom:1px solid var(--rule);}
+    .nav-links{display:none;}
+    h1{font-size:3.5rem;}
+  }
+
+  /* Case study page */
+  .case-page { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
+  .case-page-header { padding: calc(56px + 3rem) 0 0.75rem; margin-bottom: 0; display: flex; align-items: center; justify-content: space-between; }
+  .case-page-back { font-family: var(--head); font-weight: 600; font-size: 0.8rem; color: var(--faint); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; }
+  .case-page-back:hover { color: var(--mid); }
+  .case-nav { display: flex; align-items: center; justify-content: space-between; padding: 2rem 0; margin-top: 2rem; }
+  .case-nav-eyebrow { font-family: var(--head); font-weight: 600; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); display: block; }
+  .case-nav a { font-family: var(--head); font-weight: 400; font-size: 0.9rem; color: var(--blue); text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+  .case-nav a:hover { color: var(--red); }
+  .case-nav .spacer { flex: 1; }
+
+  /* Summary cards on home page */
+  .summary-grid { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .summary-card { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+  .summary-card:last-child { border-bottom: none; }
+  .summary-card.reverse { direction: rtl; }
+  .summary-card.reverse > * { direction: ltr; }
+  .summary-card-img { width: 100%; border-radius: 8px; overflow: hidden; }
+  .summary-card-img img { width: 100%; display: block; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
+  .summary-card-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+  .summary-card-title { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blue); margin-bottom: 1rem; }
+  .summary-card-desc { font-size: 1rem; color: var(--mid); line-height: 1.75; margin-bottom: 1.5rem; }
+  .summary-card-link { display: inline-block; font-family: var(--head); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--bg); background: var(--blue); padding: 0.6rem 1.25rem; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+  .summary-card-link:hover { background: var(--red); }
+  @media(max-width:780px) {
+    .summary-card, .summary-card.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+    .case-nav { flex-wrap: wrap; gap: 1rem; }
+  }
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html#hero" class="nav-name">Simon Hodgon</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#work">Case studies</a></li>
+    <li><a href="index.html#other">Other work</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+<div class="case-page">
+  <div class="case-page-header">
+    <a href="index.html" class="case-page-back">&#8592; Back to portfolio</a>
+  </div>
+  <div style="padding-bottom:1rem;padding-top:0.5rem;">
+    <h2 style="font-family:var(--head);font-weight:800;font-size:clamp(2rem,4vw,3rem);color:var(--red);letter-spacing:-0.01em;">Case <span style="color:var(--blue);">studies</span></h2>
+  </div>
+
+      
+  
+    <div class="case">
+      <div class="case-head">
+        <div>
+          <img class="case-logo" src="images/image-09.webp" alt="Ryder" style="height:30px;">
+          <p class="case-label">Ryder &middot; United States</p>
+          <h3>Last mile delivery<br>experience design</h3>
+          </div>
+        <div class="role-box"><p class="role-label">My role</p>
+          <p>Lead UX Designer, overseeing a team comprising a researcher and designer, integrated with a US based client and offshore development team.</p>
+          </div></div>
+      <div class="case-cols">
+        <div>
+          <p class="cl">Overview</p>
+          <p>Ryder was facing profound challenges in their Last Mile business. E-commerce growth had exposed operational inefficiencies, legacy technology inhibited innovation, and nimble competitors threatened market position.</p>
+          <p>Rising retailer and consumer expectations around status visibility, customisability, and communication options demanded an uplift of the entire B2B2C customer experience.</p>
+          <p class="cl">Approach</p>
+          <p>Stakeholder, customer, and user interviews gave comprehensive insight into current workflows and task dependencies. Overlaying pain points with needs, users ideated a future vision via remote co-design workshops.</p>
+          <p>We defined a solution concept, helped prioritise features into an MVP, then embedded with Ryder's technology group to deliver over two agile release cycles.</p>
+        </div>
+        <div>
+          <p class="cl">Solution</p>
+          <p>An intuitive, unified experience for Ryder Last Mile staff, customers, and end consumers, integrating seamlessly with existing off-the-shelf solutions.</p>
+          <p>The design streamlined IA and task flows, minimised screen volume and nesting, and reduced cognitive load through radically simplified layouts and interactions.</p>
+          <p>A library of UI and interaction patterns ensures future-proof consistency throughout coming releases.</p>
+          <p class="cl" style="margin-top:2rem;">Outcomes</p>
+          <div class="stats" style="flex-wrap:wrap;">
+            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">Unified</div><div class="stat-l">Experience across staff, customers and consumers</div></div>
+            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">MVP</div><div class="stat-l">Defined and prioritised from discovery insights</div></div>
+            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">2</div><div class="stat-l">Agile release cycles delivered</div></div>
+            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">Pattern library</div><div class="stat-l">Established for future consistency</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-images">
+        <div class="img-exhibit">
+          <div class="img-frame-pair">
+            <img src="images/image-10.webp" alt="Screenshot 1" onclick="openModal(this)">
+            <img src="images/image-11.webp" alt="Screenshot 2" onclick="openModal(this)">
+          </div>
+          
+        </div>
+      </div>
+    </div>
+        <div 
+  
+      <div class="case-nav">
+        <a href="case-toll-relief.html"><span class="case-nav-eyebrow">Previous</span>&#8592; Service NSW — Toll Relief</a>
+        <span class="spacer"></span>
+        <a href="case-westpac.html"><span class="case-nav-eyebrow">Next</span>Westpac — Institutional banking &#8594;</a>
+      </div>
+</div>
+<footer id="contact">
+  <div class="container">
+    <span class="dr" style="display:block;text-align:center;margin-bottom:1.5rem;">* * * * *</span>
+    <span class="eyebrow" style="display:block;margin-bottom:0.5rem;text-align:center;">Get in touch</span>
+    <h2 style="text-align:center;margin-bottom:1.75rem;">Let&rsquo;s work <span class="b">together</span></h2>
+    <div class="footer-links">
+      <a href="tel:0404613513">0404 613 513</a>
+      <a href="mailto:shodgon@gmail.com">shodgon@gmail.com</a>
+      <a href="https://www.linkedin.com/in/simon-hodgon-64b7b92" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<div class="img-modal" id="imgModal" onclick="closeModal()" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="img-modal-close" onclick="closeModal()" aria-label="Close image" role="button">&times;</button>
+  <img id="modalImg" src="" alt="Enlarged view">
+</div>
+<script>
+function openModal(el) {
+  document.getElementById('modalImg').src = el.src;
+  document.getElementById('modalImg').alt = el.alt || 'Enlarged view';
+  document.getElementById('imgModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('imgModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>

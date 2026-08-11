@@ -4,16 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simon Hodgon | Senior UX & Product Designer</title>
-<meta name="description" content="Portfolio of Simon Hodgon, Senior UX &amp; Product Designer with over a decade delivering end-to-end customer experience across government, financial services, media, and higher education.">
-<meta name="theme-color" content="#1a6bb5">
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0X16X3PG09"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-0X16X3PG09');
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 <style>
@@ -43,9 +33,9 @@
   .nav-links a:hover { color: var(--blue); }
 
   .container { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
-  section { padding: 6rem 0; }
+  section { padding: 3.5rem 0; }
 
-  #hero { padding-top: calc(56px + 5rem); padding-bottom: 5rem; border-bottom: 1px solid var(--rule); }
+  #hero { padding-top: calc(56px + 3rem); padding-bottom: 3rem; border-bottom: 1px solid var(--rule); }
   .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
   .eyebrow { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); }
   h1 { font-family: var(--head); font-weight: 800; font-size: clamp(3.5rem,7vw,5.5rem); line-height: 1; letter-spacing: -0.01em; color: var(--red); margin: 0.8rem 0 1.2rem; }
@@ -119,9 +109,6 @@
   .img-frame-pair { background: #efefed; border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .img-frame-pair img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
   .img-credit { font-style: italic; font-size: 0.88rem; color: var(--mid); margin-top: 0.85rem; text-align: center; }
-  /* Images carry width/height attrs (for CLS); with width:100% they MUST get
-     height:auto so the aspect ratio derives from the attrs instead of the raw px height. */
-  .case-images img { height: auto; }
   .case-images { margin-top: 3.5rem; padding: 3rem; border-top: 3px solid var(--rule); background: var(--off); }
   .case-images .img-label { font-family: var(--head); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.75rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--blue); display: block; }
   .imgs-single img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 12px 48px rgba(0,0,0,0.14); min-height: 320px; object-fit: cover; object-position: top; }
@@ -133,7 +120,7 @@
   .imgs-featured .featured-stack img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
   .img-cap { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; display: block; }
 
-  #other { background: var(--bg); border-top: 1px solid var(--rule); }
+  #other { background: var(--bg); }
   .other-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 1.5rem; background: transparent; border: none; margin-top: 3rem; }
   .other-card { background: #ffffff; overflow: hidden; border: 1px solid var(--rule); border-radius: 8px; transition: box-shadow 0.2s, transform 0.2s; }
   .other-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
@@ -145,7 +132,7 @@
   .other-card p { font-size: 0.9rem; color: var(--mid); line-height: 1.65; }
   .other-year { font-family: var(--head); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; }
 
-  footer { border-top: 1px solid var(--rule); padding: 5rem 0 4rem; text-align: center; }
+  footer { padding: 5rem 0 4rem; text-align: center; }
   footer .eyebrow { display: block; margin-bottom: 0.5rem; }
   footer h2 { margin-bottom: 1.75rem; }
   .footer-links { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; }
@@ -153,25 +140,8 @@
   .footer-links a:hover { color: var(--blue); }
 
   @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
-  /* Resting state is visible — guarantees content shows even if the entrance
-     animation never runs (reduced-motion, throttled tab, animation unsupported). */
-  .fu { opacity: 1; }
-  @media (prefers-reduced-motion: no-preference) {
-    .fu { opacity: 0; animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards; }
-  }
-  /* Safety net: if the entrance animation never paints (throttled/backgrounded
-     tab, animation unsupported), force content visible so it's never lost. */
-  html.fu-fallback .fu { opacity: 1 !important; }
+  .fu { opacity:0; animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards; }
   .d1{animation-delay:.05s} .d2{animation-delay:.15s} .d3{animation-delay:.28s} .d4{animation-delay:.4s}
-
-  /* Keyboard-only focus visibility */
-  a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 3px; }
-
-  /* Skip link */
-  .skip-link { position: fixed; top: 0; left: 0; z-index: 200; transform: translateY(-120%); background: var(--blue); color: #fff; font-family: var(--head); font-weight: 700; font-size: 0.9rem; padding: 0.65rem 1.1rem; text-decoration: none; border-radius: 0 0 4px 0; transition: transform 0.16s ease; }
-  .skip-link:focus { transform: translateY(0); }
-
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
   @media(max-width:780px){
     .hero-inner{grid-template-columns:1fr;gap:3rem;}
@@ -184,26 +154,47 @@
     .nav-links{display:none;}
     h1{font-size:3.5rem;}
   }
-  /* Stack multi-up image rows (incl. the 3-up Toll Tracker row) on phones so
-     screenshots stay legible instead of shrinking to thumbnails. */
-  @media(max-width:620px){
-    .img-frame-pair{ grid-template-columns:1fr !important; }
+
+  /* Case study page */
+  .case-page { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
+  .case-page-header { padding: calc(56px + 3rem) 0 2rem; border-bottom: 1px solid var(--rule); margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between; }
+  .case-page-back { font-family: var(--head); font-weight: 600; font-size: 0.85rem; color: var(--mid); text-decoration: none; letter-spacing: 0.05em; }
+  .case-page-back:hover { color: var(--blue); }
+  .case-nav { display: flex; align-items: center; justify-content: space-between; padding: 2.5rem 0; border-top: 1px solid var(--rule); margin-top: 3rem; }
+  .case-nav a { font-family: var(--head); font-weight: 700; font-size: 0.9rem; color: var(--blue); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+  .case-nav a:hover { color: var(--red); }
+  .case-nav .spacer { flex: 1; }
+
+  /* Summary cards on home page */
+  .summary-grid { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .summary-card { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 2.5rem 0; }
+  .summary-card:last-child { border-bottom: none; }
+  .summary-card.reverse { direction: rtl; }
+  .summary-card.reverse > * { direction: ltr; }
+  .summary-card-img { width: 100%; border-radius: 8px; overflow: hidden; }
+  .summary-card-img img { width: 100%; display: block; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
+  .summary-card-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+  .summary-card-title { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blue); margin-bottom: 1rem; }
+  .summary-card-desc { font-size: 1rem; color: var(--mid); line-height: 1.75; margin-bottom: 1.5rem; }
+  .summary-card-link { display: inline-block; font-family: var(--head); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--bg); background: var(--blue); padding: 0.6rem 1.25rem; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+  .summary-card-link:hover { background: var(--red); }
+  @media(max-width:780px) {
+    .summary-card, .summary-card.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+    .case-nav { flex-wrap: wrap; gap: 1rem; }
   }
+
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<nav aria-label="Primary">
+<nav>
   <a href="#hero" class="nav-name">Simon Hodgon</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
+    <li><a href="#work">Case studies</a></li>
     <li><a href="#other">Other work</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
-
-<main id="main" tabindex="-1">
 <div class="container">
   <div id="hero">
     <div class="hero-inner">
@@ -214,7 +205,7 @@
         <p class="hero-role fu d3">Senior UX &amp; Product Designer</p>
         <div class="hero-contact fu d4">
           <a href="tel:0404613513">0404 613 513</a>
-          <a href="/cdn-cgi/l/email-protection#f7849f9893909899b7909a969e9bd994989a"><span class="__cf_email__" data-cfemail="aad9c2c5cecdc5c4eacdc7cbc3c684c9c5c7">[email&#160;protected]</span></a>
+          <a href="mailto:shodgon@gmail.com">shodgon@gmail.com</a>
           <a href="https://www.linkedin.com/in/simon-hodgon-64b7b92" target="_blank">LinkedIn</a>
         </div>
       </div>
@@ -226,7 +217,6 @@
     </div>
   </div>
 </div>
-
 <section id="about">
   <div class="container">
     <div class="sh">
@@ -254,7 +244,6 @@
     </div>
   </div>
 </section>
-
 <section id="work">
   <div class="container">
     <div class="sh">
@@ -262,151 +251,47 @@
       <h2>Case <span class="b">studies</span></h2>
       <span class="dr" style="margin-top:0.75rem;">* * * * *</span>
     </div>
-    <div class="case">
-      <div class="case-head">
-        <div>
-          <img class="case-logo" src="images/image-01.webp" alt="Service NSW" width="371" height="136" loading="lazy" decoding="async">
-          <p class="case-label">Service NSW &middot; Transport for NSW</p>
-          <h3>Toll Relief<br>product design</h3>
-          </div>
-        <div class="role-box"><p class="role-label">My role</p>
-          <p>Lead Product Designer within an Agile squad of Engineers and Product Management, collaborating with internal and external stakeholders and partners.</p>
-          </div></div>
-      <div class="case-cols">
-        <div>
-          <p class="cl">Overview</p>
-          <p>As part of an election promise, the NSW state government pledged $560 million in rebates to motorists using state toll roads. The scheme refunds toll expenditure over $60 per week per tag or licence plate, up to $400 per tag.</p>
-          <p>Owned by Transport for NSW, online registration and claiming was handled by Service NSW. As Lead Product Designer, I was tasked with providing a seamless way for motorists to register and make claims.</p>
-          <p class="cl">Approach</p>
-          <ul>
-            <li>Extensive review of the existing product to identify pain points, delivered as a current state customer journey map</li>
-            <li>Workshops with stakeholders, internal staff, external agencies and partners to define requirements</li>
-            <li>Definition of user flows in collaboration with engineers and product management</li>
-            <li>Guerrilla testing within Service NSW centres and testing with an accessible cohort</li>
-            <li>Screen design development with regular showcasing to stakeholders</li>
-            <li>Liaison with engineers to ensure built product met customer needs</li>
-          </ul>
+    <div class="summary-grid">
+
+      <div class="summary-card">
+        <div class="summary-card-img">
+          <img src="images/image-02.webp" alt="Toll Relief — Service NSW">
         </div>
         <div>
-          <p class="cl">Solution</p>
-          <p>Designs moved from sketch to working prototype, tested at each stage and refined accordingly. Using the Service NSW design system (GEL), page designs used established components to deliver a consistent, predictable, and accessible experience.</p>
-          <p>A key challenge was communicating two separate toll relief schemes simultaneously. Feedback mechanisms were embedded and monitored regularly.</p>
-          <p class="cl" style="margin-top:2rem;">Outcomes</p>
-          <div class="stats" style="flex-wrap:wrap;">
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n">9K</div><div class="stat-l">Customers on day one</div></div>
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n">$3M+</div><div class="stat-l">Claimed on launch day</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n">4.5/5</div><div class="stat-l">Ease of use rating</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n">47K+</div><div class="stat-l">Claims in month one</div></div>
-          </div>
+          <p class="summary-card-label">Service NSW &middot; Transport for NSW &middot; 2024</p>
+          <h3 class="summary-card-title">Toll Relief product design</h3>
+          <p class="summary-card-desc">Lead Product Designer on a high-complexity government digital product, delivering a seamless online registration and claims experience for NSW motorists. Launched to 9,000 customers on day one, with 47,000 claims in month one and a 4.5/5 ease-of-use rating.</p>
+          <a href="case-toll-relief.html" class="summary-card-link">View case study</a>
         </div>
       </div>
-            <div class="case-images">
-        <div class="img-exhibit">
-          <div class="img-frame-pair" style="background:#efefed; border-radius:8px; padding:1rem; gap:1rem; margin-bottom:1.5rem;">
-            <img src="images/image-02.webp" alt="Toll Tracker — $60 weekly cap scheme" width="1652" height="4623" loading="lazy" decoding="async" onclick="openModal(this)" style="border-radius:4px;">
-            <img src="images/image-03.webp" alt="Toll Tracker — 40% rebate scheme" width="1652" height="4662" loading="lazy" decoding="async" onclick="openModal(this)" style="border-radius:4px;">
-          </div>
-          <div class="img-frame-pair" style="grid-template-columns:1fr 1fr 1fr; background:#efefed; border-radius:8px; padding:1rem; gap:1rem;">
-            <img src="images/image-04.webp" alt="Toll Tracker linking screen" width="2452" height="3450" loading="lazy" decoding="async" onclick="openModal(this)" style="border-radius:4px;">
-            <img src="images/image-05.webp" alt="Weekly breakdown" width="1652" height="2784" loading="lazy" decoding="async" onclick="openModal(this)" style="border-radius:4px;">
-            <img src="images/image-06.webp" alt="Claim confirmation" width="1652" height="2190" loading="lazy" decoding="async" onclick="openModal(this)" style="border-radius:4px;">
-          </div>
-          <div style="background:#efefed; border-radius:8px; padding:1rem; display:flex; flex-direction:column; gap:1rem; margin-top:1.5rem;"><img style="width:100%; display:block; border-radius:4px;" width="1252" height="510" loading="lazy" decoding="async" onclick="openModal(this)" src="images/image-07.webp" alt="Customer journey map"><img style="width:100%; display:block; border-radius:4px;" width="1252" height="733" loading="lazy" decoding="async" onclick="openModal(this)" src="images/image-08.webp" alt="User flow"></div>
+
+      <div class="summary-card reverse">
+        <div class="summary-card-img">
+          <img src="images/image-10.webp" alt="Ryder Last Mile — Delivery experience">
+        </div>
+        <div>
+          <p class="summary-card-label">Ryder &middot; United States &middot; 2021</p>
+          <h3 class="summary-card-title">Last mile delivery experience design</h3>
+          <p class="summary-card-desc">Lead UX Designer overseeing a cross-disciplinary team, defining and delivering a unified experience for staff, customers and end consumers across Ryder's Last Mile logistics business. Delivered across two agile release cycles, embedded with the client's technology group.</p>
+          <a href="case-ryder.html" class="summary-card-link">View case study</a>
         </div>
       </div>
-    </div>
-        <div class="case-divider">* * * * * * * * * *</div>
-    <div class="case">
-      <div class="case-head">
-        <div>
-          <img class="case-logo" src="images/image-09.webp" alt="Ryder" style="height:30px;" width="454" height="111" loading="lazy" decoding="async">
-          <p class="case-label">Ryder &middot; United States</p>
-          <h3>Last mile delivery<br>experience design</h3>
-          </div>
-        <div class="role-box"><p class="role-label">My role</p>
-          <p>Lead UX Designer, overseeing a team comprising a researcher and designer, integrated with a US based client and offshore development team.</p>
-          </div></div>
-      <div class="case-cols">
-        <div>
-          <p class="cl">Overview</p>
-          <p>Ryder was facing profound challenges in their Last Mile business. E-commerce growth had exposed operational inefficiencies, legacy technology inhibited innovation, and nimble competitors threatened market position.</p>
-          <p>Rising retailer and consumer expectations around status visibility, customisability, and communication options demanded an uplift of the entire B2B2C customer experience.</p>
-          <p class="cl">Approach</p>
-          <p>Stakeholder, customer, and user interviews gave comprehensive insight into current workflows and task dependencies. Overlaying pain points with needs, users ideated a future vision via remote co-design workshops.</p>
-          <p>We defined a solution concept, helped prioritise features into an MVP, then embedded with Ryder's technology group to deliver over two agile release cycles.</p>
+
+      <div class="summary-card">
+        <div class="summary-card-img">
+          <img src="images/image-13.webp" alt="Westpac ICE — Institutional banking">
         </div>
         <div>
-          <p class="cl">Solution</p>
-          <p>An intuitive, unified experience for Ryder Last Mile staff, customers, and end consumers, integrating seamlessly with existing off-the-shelf solutions.</p>
-          <p>The design streamlined IA and task flows, minimised screen volume and nesting, and reduced cognitive load through radically simplified layouts and interactions.</p>
-          <p>A library of UI and interaction patterns ensures future-proof consistency throughout coming releases.</p>
-          <p class="cl" style="margin-top:2rem;">Outcomes</p>
-          <div class="stats" style="flex-wrap:wrap;">
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">Unified</div><div class="stat-l">Experience across staff, customers and consumers</div></div>
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">MVP</div><div class="stat-l">Defined and prioritised from discovery insights</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">2</div><div class="stat-l">Agile release cycles delivered</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">Pattern library</div><div class="stat-l">Established for future consistency</div></div>
-          </div>
+          <p class="summary-card-label">Westpac &middot; 2022</p>
+          <h3 class="summary-card-title">Institutional banking system design</h3>
+          <p class="summary-card-desc">Lead UX Designer on a large cross-functional consultancy engagement, designing an institutional banking platform to meet regulatory requirements while demonstrating future state capability. Designs validated with staff and confirmed platform suitability.</p>
+          <a href="case-westpac.html" class="summary-card-link">View case study</a>
         </div>
       </div>
-      <div class="case-images">
-        <div class="img-exhibit">
-          <div class="img-frame-pair">
-            <img src="images/image-10.webp" alt="Ryder Last Mile — order management screen" width="1024" height="2323" loading="lazy" decoding="async" onclick="openModal(this)">
-            <img src="images/image-11.webp" alt="Ryder Last Mile — delivery tracking screen" width="1024" height="2241" loading="lazy" decoding="async" onclick="openModal(this)">
-          </div>
-          
-        </div>
-      </div>
-    </div>
-        <div class="case-divider">* * * * * * * * * *</div>
-    <div class="case">
-      <div class="case-head">
-        <div>
-          <img class="case-logo" src="images/image-12.webp" alt="Westpac" style="height:26px;" width="505" height="100" loading="lazy" decoding="async">
-          <p class="case-label">Westpac</p>
-          <h3>Institutional banking<br>system design</h3>
-          </div>
-        <div class="role-box"><p class="role-label">My role</p>
-          <p>Lead UX Designer, within a large cross-functional consultancy team.</p>
-          </div></div>
-      <div class="case-cols">
-        <div>
-          <p class="cl">Overview</p>
-          <p>Regulatory change required Westpac to bring off-shore institutional banking systems on-shore. The change also presented an opportunity to consolidate multiple systems using an existing platform.</p>
-          <p>Working closely with bankers, stakeholders, and the wider design team, the goal was to rapidly build an MVP while simultaneously demonstrating future state capability.</p>
-          <p class="cl">Approach</p>
-          <p>As part of a broader team of business analysts, solution architects, and developers, we conducted workshops to understand and prioritise requirements, then worked closely with the product owner on staff-specific requirements.</p>
-          <p>Screen designs were tested with users and the wider business to evaluate business logic, rules, and functionality, with feedback feeding into further iterations.</p>
-        </div>
-        <div>
-          <p class="cl">Solution</p>
-          <p>A series of streamlined processes and designs, validated with the staff who use them every day. The design enabled a user stories backlog for implementation and confirmed the suitability of Westpac's chosen future platform.</p>
-          <p>Screen designs made use of the existing Westpac design system, allowing efficiencies in output and easy alignment with the internal design team.</p>
-          <p class="cl" style="margin-top:2rem;">Outcomes</p>
-          <div class="stats" style="flex-wrap:wrap;">
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">MVP</div><div class="stat-l">Delivered to meet regulatory deadline</div></div>
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">Validated</div><div class="stat-l">Designs tested with staff through usability testing</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">Backlog</div><div class="stat-l">User stories created, enabling development to proceed</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">Confirmed</div><div class="stat-l">Suitability of chosen future platform</div></div>
-          </div>
-        </div>
-      </div>
-      <div class="case-images">
-        <div class="img-exhibit">
-          <div style="background:#efefed; border-radius:8px; padding:1rem; margin-bottom:1.5rem;">
-            <img src="images/image-13.webp" alt="Westpac ICE dashboard" width="1492" height="1550" loading="lazy" decoding="async" onclick="openModal(this)" style="width:100%; display:block; border-radius:4px;">
-          </div>
-          <div class="img-frame-pair" style="background:#efefed; border-radius:8px; padding:1rem; gap:1rem;">
-            <img src="images/image-14.webp" alt="Credit application case" width="1492" height="2439" loading="lazy" decoding="async" onclick="openModal(this)" style="border-radius:4px;">
-            <img src="images/image-15.webp" alt="Set up screen" width="1504" height="1997" loading="lazy" decoding="async" onclick="openModal(this)" style="border-radius:4px;">
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
-
 <section id="other">
   <div class="container">
     <div class="sh">
@@ -416,7 +301,7 @@
     </div>
     <div class="other-grid">
       <div class="other-card">
-        <img class="other-card-img" src="images/image-16.webp" alt="University of Sydney" width="2572" height="1652" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-16.webp" alt="University of Sydney" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">University of Sydney</p>
           <h4>University website &amp; student experience</h4>
@@ -425,7 +310,7 @@
         </div>
       </div>
       <div class="other-card">
-        <img class="other-card-img" src="images/image-17.webp" alt="Torii Consulting" width="1324" height="1050" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-17.webp" alt="Torii Consulting" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">Torii Consulting</p>
           <h4>News subscriber experience design</h4>
@@ -434,7 +319,7 @@
         </div>
       </div>
       <div class="other-card">
-        <img class="other-card-img" src="images/image-18.webp" alt="Aventus" width="1970" height="1190" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-18.webp" alt="Aventus" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">Aventus</p>
           <h4>SuperCentre website redesign</h4>
@@ -443,7 +328,7 @@
         </div>
       </div>
       <div class="other-card">
-        <img class="other-card-img" src="images/image-19.webp" alt="Qantas" width="960" height="740" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-19.webp" alt="Qantas" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">Qantas</p>
           <h4>Business Rewards onboarding</h4>
@@ -452,7 +337,7 @@
         </div>
       </div>
       <div class="other-card">
-        <img class="other-card-img" src="images/image-20.webp" alt="IAG" width="1512" height="2281" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-20.webp" alt="IAG" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">IAG</p>
           <h4>SMB policy adjustments interface</h4>
@@ -461,7 +346,7 @@
         </div>
       </div>
       <div class="other-card">
-        <img class="other-card-img" src="images/image-21.webp" alt="Macquarie Bank" width="745" height="561" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-21.webp" alt="Macquarie Bank" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">Macquarie Bank</p>
           <h4>Deal management system</h4>
@@ -470,7 +355,7 @@
         </div>
       </div>
       <div class="other-card">
-        <img class="other-card-img" src="images/image-22.webp" alt="Optus Loop Live" width="1352" height="2126" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-22.webp" alt="Optus Loop Live" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">Optus</p>
           <h4>Loop Live sign-up design</h4>
@@ -479,7 +364,7 @@
         </div>
       </div>
       <div class="other-card">
-        <img class="other-card-img" src="images/image-23.webp" alt="Optus website" width="2522" height="1212" loading="lazy" decoding="async" onclick="openModal(this)">
+        <img class="other-card-img" src="images/image-23.webp" alt="Optus website" onclick="openModal(this)">
         <div class="other-card-body">
           <p class="other-label">Optus</p>
           <h4>optus.com.au redesign</h4>
@@ -490,8 +375,6 @@
     </div>
   </div>
 </section>
-</main>
-
 <footer id="contact">
   <div class="container">
     <span class="dr" style="display:block;text-align:center;margin-bottom:1.5rem;">* * * * *</span>
@@ -499,58 +382,29 @@
     <h2 style="text-align:center;margin-bottom:1.75rem;">Let&rsquo;s work <span class="b">together</span></h2>
     <div class="footer-links">
       <a href="tel:0404613513">0404 613 513</a>
-      <a href="/cdn-cgi/l/email-protection#7d0e1512191a12133d1a101c1411531e1210"><span class="__cf_email__" data-cfemail="2b5843444f4c44456b4c464a424705484446">[email&#160;protected]</span></a>
+      <a href="mailto:shodgon@gmail.com">shodgon@gmail.com</a>
       <a href="https://www.linkedin.com/in/simon-hodgon-64b7b92" target="_blank">LinkedIn</a>
     </div>
   </div>
 </footer>
-
-
-<div class="img-modal" id="imgModal" role="dialog" aria-modal="true" aria-label="Image viewer" onclick="closeModal()">
-  <button class="img-modal-close" onclick="closeModal()" aria-label="Close image viewer">&times;</button>
-  <img id="modalImg" alt="Enlarged view">
+<div class="img-modal" id="imgModal" onclick="closeModal()" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="img-modal-close" onclick="closeModal()" aria-label="Close image" role="button">&times;</button>
+  <img id="modalImg" src="" alt="Enlarged view">
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-var lastFocused = null;
+<script>
 function openModal(el) {
-  lastFocused = document.activeElement;
-  var modalImg = document.getElementById('modalImg');
-  modalImg.src = el.src;
-  modalImg.alt = el.alt ? ('Enlarged: ' + el.alt) : 'Enlarged view';
+  document.getElementById('modalImg').src = el.src;
+  document.getElementById('modalImg').alt = el.alt || 'Enlarged view';
   document.getElementById('imgModal').classList.add('open');
   document.body.style.overflow = 'hidden';
-  document.querySelector('.img-modal-close').focus();
 }
 function closeModal() {
   document.getElementById('imgModal').classList.remove('open');
   document.body.style.overflow = '';
-  if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-  lastFocused = null;
 }
 document.addEventListener('keydown', function(e) {
-  var open = document.getElementById('imgModal').classList.contains('open');
-  if (!open) return;
   if (e.key === 'Escape') closeModal();
-  else if (e.key === 'Tab') { e.preventDefault(); document.querySelector('.img-modal-close').focus(); }
 });
-// Make the image-zoom triggers operable by keyboard (Enter / Space), not just click.
-document.addEventListener('DOMContentLoaded', function() {
-  var triggers = document.querySelectorAll('img[onclick^="openModal"]');
-  Array.prototype.forEach.call(triggers, function(img) {
-    img.setAttribute('role', 'button');
-    img.setAttribute('tabindex', '0');
-    img.setAttribute('aria-label', 'View larger: ' + (img.getAttribute('alt') || 'image'));
-    img.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        openModal(img);
-      }
-    });
-  });
-});
-// Safety net: if the entrance animation never paints (throttled/backgrounded tab,
-// animation unsupported), reveal content after the animation window so it's never lost.
-setTimeout(function() { document.documentElement.classList.add('fu-fallback'); }, 1500);
 </script>
 </body>
 </html>
