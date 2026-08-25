@@ -76,28 +76,16 @@
   .role-box p { font-size: 0.95rem; line-height: 1.65; }
 
   .case-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-
-  .case-flow { display: flex; flex-direction: column; gap: 3.5rem; }
-  .case-block-text { max-width: none; }
-  .case-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-  .case-block-row .case-block-img { position: sticky; top: 6rem; }
-  .case-more-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); }
-  @media(max-width:780px){
-    .case-block-row { grid-template-columns: 1fr; gap: 1.5rem; }
-    .case-block-row .case-block-img { position: static; }
-  }
-  .cl { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.7rem; margin-top: 2.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
+  .cl { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.7rem; margin-top: 2.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
   .cl:first-child { margin-top: 0; }
-  .case-cols p, .case-flow p { font-size: 1rem; margin-bottom: 1.1rem; line-height: 1.75; }
-  .case-cols ul, .case-flow ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.25rem; }
-  .case-cols ul li, .case-flow ul li { font-size: 1rem; padding-left: 1.25rem; position: relative; line-height: 1.6; }
-  .case-cols ul li::before, .case-flow ul li::before { content: '*'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
-  .case-flow strong { font-weight: 700; color: var(--ink); }
+  .case-cols p { font-size: 1rem; margin-bottom: 0.75rem; line-height: 1.75; }
+  .case-cols ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .case-cols ul li { font-size: 1rem; padding-left: 1.25rem; position: relative; line-height: 1.6; }
+  .case-cols ul li::before { content: '*'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
 
-  .stats { display: grid; grid-template-columns: 1fr 1fr; border: 1px dotted var(--rule); margin-top: 0.5rem; }
-  .stat { padding: 1rem; text-align: center; border-bottom: 1px dotted var(--rule); }
-  .stat:nth-child(odd) { border-right: 1px dotted var(--rule); }
-  .stat:nth-last-child(-n+2) { border-bottom: none; }
+  .stats { display: flex; gap: 0; border: 1px solid var(--rule); margin-top: 0.25rem; }
+  .stat { flex: 1; padding: 1rem; border-right: 1px solid var(--rule); text-align: center; }
+  .stat:last-child { border-right: none; }
   .stat-n { font-family: var(--head); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--blue); margin-bottom: 0.2rem; }
   .stat-l { font-size: 0.8rem; color: var(--mid); line-height: 1.3; }
 
@@ -162,6 +150,7 @@
     .case-cols{grid-template-columns:1fr;gap:2.5rem;}
     .imgs-pair,.imgs-featured{grid-template-columns:1fr;}
     .stats{flex-wrap:wrap;}
+    .stat{flex:1 1 45%;border-bottom:1px solid var(--rule);}
     .nav-links{display:none;}
     h1{font-size:3.5rem;}
   }
@@ -196,11 +185,11 @@
   }
 
 </style>
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
 <nav>
@@ -232,55 +221,36 @@
         <div class="role-box"><p class="role-label">My role</p>
           <p>Lead UX Designer, within a large cross-functional consultancy team.</p>
           </div></div>
-      <div class="case-flow">
-        <div class="case-block-text">
-          <p class="cl">Overview</p>
-          <p>As a result of regulatory change, Westpac needed to make significant changes to their off-shore <strong>institutional banking systems</strong> to bring them on-shore.</p>
-          <p>With this required change, Westpac also saw an <strong>opportunity</strong> to <strong>consolidate</strong> a number of different systems into one, using an existing <strong>platform</strong>.</p>
-          <p>This project was to <strong>understand</strong> the different <strong>systems</strong> and, working closely with bankers, stakeholders, and the wider Westpac design team, <strong>create designs</strong> to support the many <strong>different user journeys</strong> and requirements.</p>
-          <p>The initial requirement was to <strong>rapidly create</strong> an <strong>MVP</strong> to quickly deliver on the regulatory requirement, but at the same time create <strong>designs</strong> to <strong>demonstrate</strong> future state capability and <strong>test</strong> the viability of the intended platform.</p>
-        </div>
-
-        <div class="case-block-row">
-          <div>
-            <p class="cl">Approach</p>
-            <p>As part of a <strong>broader team</strong> of business analysts, solution architects and developers, we first conducted a number of <strong>workshops</strong> to <strong>understand</strong> and <strong>prioritise</strong> requirements, and to <strong>define</strong> approaches.</p>
-            <p>Then, we <strong>worked closely</strong> with the <strong>product owner</strong>, and held further <strong>workshops</strong> to better understand the more specific <strong>requirements</strong> for staff at Westpac.</p>
-            <p>We then <strong>created</strong> a series of screen <strong>designs</strong> which were tested with users and the <strong>wider business</strong> to evaluate business logic, rules, data and functionality. The feedback was then used as input into further <strong>iterations</strong>.</p>
-          </div>
-          <div class="case-block-img">
-            <div class="img-frame">
-              <img src="images/image-13.webp" alt="Westpac ICE dashboard" onclick="openModal(this)">
-            </div>
-          </div>
-        </div>
-
-        <div class="case-block-row">
-          <div>
-            <p class="cl">Solution</p>
-            <p>The solution is a series of <strong>streamlined processes and designs</strong>, which have been <strong>validated</strong> with the staff who will use them every day.</p>
-            <p>The design <strong>enabled</strong> the creation of a <strong>backlog</strong> of user stories for implementation.</p>
-            <p>Additionally, the design has <strong>enabled</strong> Westpac to confirm the <strong>suitability</strong> of their chosen future platform.</p>
-            <p>The screen designs themselves made use of the existing Westpac <strong>design system</strong>, allowing <strong>efficiencies</strong> in our <strong>output</strong> and allowing for easy alignment with the Westpac design team.</p>
-            <p class="cl" style="margin-top:2rem;">Outcomes</p>
-            <div class="stats">
-              <div class="stat"><div class="stat-n" style="font-size:1rem;">MVP</div><div class="stat-l">Delivered to meet regulatory deadline</div></div>
-              <div class="stat"><div class="stat-n" style="font-size:1rem;">Validated</div><div class="stat-l">Designs tested with staff through usability testing</div></div>
-              <div class="stat"><div class="stat-n" style="font-size:1rem;">Backlog</div><div class="stat-l">User stories created, enabling development to proceed</div></div>
-              <div class="stat"><div class="stat-n" style="font-size:1rem;">Confirmed</div><div class="stat-l">Suitability of chosen future platform</div></div>
-            </div>
-          </div>
-          <div class="case-block-img">
-            <div class="img-frame">
-              <img src="images/image-14.webp" alt="Credit application case" onclick="openModal(this)">
-            </div>
-          </div>
-        </div>
-
+      <div class="case-cols">
         <div>
-          <p class="case-more-label">More screens</p>
-          <div class="img-frame">
-            <img src="images/image-15.webp" alt="Set up screen" onclick="openModal(this)">
+          <p class="cl">Overview</p>
+          <p>Regulatory change required Westpac to bring off-shore institutional banking systems on-shore. The change also presented an opportunity to consolidate multiple systems using an existing platform.</p>
+          <p>Working closely with bankers, stakeholders, and the wider design team, the goal was to rapidly build an MVP while simultaneously demonstrating future state capability.</p>
+          <p class="cl">Approach</p>
+          <p>As part of a broader team of business analysts, solution architects, and developers, we conducted workshops to understand and prioritise requirements, then worked closely with the product owner on staff-specific requirements.</p>
+          <p>Screen designs were tested with users and the wider business to evaluate business logic, rules, and functionality, with feedback feeding into further iterations.</p>
+        </div>
+        <div>
+          <p class="cl">Solution</p>
+          <p>A series of streamlined processes and designs, validated with the staff who use them every day. The design enabled a user stories backlog for implementation and confirmed the suitability of Westpac's chosen future platform.</p>
+          <p>Screen designs made use of the existing Westpac design system, allowing efficiencies in output and easy alignment with the internal design team.</p>
+          <p class="cl" style="margin-top:2rem;">Outcomes</p>
+          <div class="stats" style="flex-wrap:wrap;">
+            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">MVP</div><div class="stat-l">Delivered to meet regulatory deadline</div></div>
+            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">Validated</div><div class="stat-l">Designs tested with staff through usability testing</div></div>
+            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">Backlog</div><div class="stat-l">User stories created, enabling development to proceed</div></div>
+            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">Confirmed</div><div class="stat-l">Suitability of chosen future platform</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="case-images">
+        <div class="img-exhibit">
+          <div style="background:#efefed; border-radius:8px; padding:1rem; margin-bottom:1.5rem;">
+            <img src="images/image-13.webp" alt="Westpac ICE dashboard" onclick="openModal(this)" style="width:100%; display:block; border-radius:4px;">
+          </div>
+          <div class="img-frame-pair" style="background:#efefed; border-radius:8px; padding:1rem; gap:1rem;">
+            <img src="images/image-14.webp" alt="Credit application case" onclick="openModal(this)" style="border-radius:4px;">
+            <img src="images/image-15.webp" alt="Set up screen" onclick="openModal(this)" style="border-radius:4px;">
           </div>
         </div>
       </div>
