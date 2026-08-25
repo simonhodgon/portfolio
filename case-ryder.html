@@ -76,16 +76,27 @@
   .role-box p { font-size: 0.95rem; line-height: 1.65; }
 
   .case-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-  .cl { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.7rem; margin-top: 2.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
-  .cl:first-child { margin-top: 0; }
-  .case-cols p { font-size: 1rem; margin-bottom: 0.75rem; line-height: 1.75; }
-  .case-cols ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-  .case-cols ul li { font-size: 1rem; padding-left: 1.25rem; position: relative; line-height: 1.6; }
-  .case-cols ul li::before { content: '*'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
 
-  .stats { display: flex; gap: 0; border: 1px solid var(--rule); margin-top: 0.25rem; }
-  .stat { flex: 1; padding: 1rem; border-right: 1px solid var(--rule); text-align: center; }
-  .stat:last-child { border-right: none; }
+  .case-flow { display: flex; flex-direction: column; gap: 3.5rem; }
+  .case-block-text { max-width: none; }
+  .case-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .case-block-row .case-block-img { position: sticky; top: 6rem; }
+  @media(max-width:780px){
+    .case-block-row { grid-template-columns: 1fr; gap: 1.5rem; }
+    .case-block-row .case-block-img { position: static; }
+  }
+  .cl { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.7rem; margin-top: 2.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
+  .cl:first-child { margin-top: 0; }
+  .case-cols p, .case-flow p { font-size: 1rem; margin-bottom: 1.1rem; line-height: 1.75; }
+  .case-cols ul, .case-flow ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.25rem; }
+  .case-cols ul li, .case-flow ul li { font-size: 1rem; padding-left: 1.25rem; position: relative; line-height: 1.6; }
+  .case-cols ul li::before, .case-flow ul li::before { content: '*'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+  .case-flow strong { font-weight: 700; color: var(--ink); }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; border: 1px dotted var(--rule); margin-top: 0.5rem; }
+  .stat { padding: 1rem; text-align: center; border-bottom: 1px dotted var(--rule); }
+  .stat:nth-child(odd) { border-right: 1px dotted var(--rule); }
+  .stat:nth-last-child(-n+2) { border-bottom: none; }
   .stat-n { font-family: var(--head); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--blue); margin-bottom: 0.2rem; }
   .stat-l { font-size: 0.8rem; color: var(--mid); line-height: 1.3; }
 
@@ -150,7 +161,6 @@
     .case-cols{grid-template-columns:1fr;gap:2.5rem;}
     .imgs-pair,.imgs-featured{grid-template-columns:1fr;}
     .stats{flex-wrap:wrap;}
-    .stat{flex:1 1 45%;border-bottom:1px solid var(--rule);}
     .nav-links{display:none;}
     h1{font-size:3.5rem;}
   }
@@ -221,36 +231,50 @@
         <div class="role-box"><p class="role-label">My role</p>
           <p>Lead UX Designer, overseeing a team comprising a researcher and designer, integrated with a US based client and offshore development team.</p>
           </div></div>
-      <div class="case-cols">
-        <div>
+      <div class="case-flow">
+        <div class="case-block-text">
           <p class="cl">Overview</p>
-          <p>Ryder was facing profound challenges in their Last Mile business. E-commerce growth had exposed operational inefficiencies, legacy technology inhibited innovation, and nimble competitors threatened market position.</p>
-          <p>Rising retailer and consumer expectations around status visibility, customisability, and communication options demanded an uplift of the entire B2B2C customer experience.</p>
-          <p class="cl">Approach</p>
-          <p>Stakeholder, customer, and user interviews gave comprehensive insight into current workflows and task dependencies. Overlaying pain points with needs, users ideated a future vision via remote co-design workshops.</p>
-          <p>We defined a solution concept, helped prioritise features into an MVP, then embedded with Ryder's technology group to deliver over two agile release cycles.</p>
+          <p>As a long-standing, established player in the North American <strong>logistics sector</strong>, Ryder was facing profound internal and external challenges in their Last Mile business.</p>
+          <p>Exponential growth of e-commerce in the past years and resulting increase in volume of deliveries had <strong>exposed and exacerbated operational inefficiencies</strong> across the business.</p>
+          <p>Legacy technology <strong>inhibited innovation</strong>, and an influx of new, nimble competitors was posing a threat to growth and market position.</p>
+          <p>A rise in expectations from retailers and their consumers around <strong>status visibility, customisability</strong>, and <strong>communication options</strong> throughout the delivery process demanded an uplift of the entire B2B2C customer experience.</p>
         </div>
-        <div>
-          <p class="cl">Solution</p>
-          <p>An intuitive, unified experience for Ryder Last Mile staff, customers, and end consumers, integrating seamlessly with existing off-the-shelf solutions.</p>
-          <p>The design streamlined IA and task flows, minimised screen volume and nesting, and reduced cognitive load through radically simplified layouts and interactions.</p>
-          <p>A library of UI and interaction patterns ensures future-proof consistency throughout coming releases.</p>
-          <p class="cl" style="margin-top:2rem;">Outcomes</p>
-          <div class="stats" style="flex-wrap:wrap;">
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">Unified</div><div class="stat-l">Experience across staff, customers and consumers</div></div>
-            <div class="stat" style="flex:1 1 45%;border-bottom:1px solid var(--rule);"><div class="stat-n" style="font-size:1rem;">MVP</div><div class="stat-l">Defined and prioritised from discovery insights</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">2</div><div class="stat-l">Agile release cycles delivered</div></div>
-            <div class="stat" style="flex:1 1 45%;"><div class="stat-n" style="font-size:1rem;">Pattern library</div><div class="stat-l">Established for future consistency</div></div>
+
+        <div class="case-block-row">
+          <div>
+            <p class="cl">Approach</p>
+            <p><strong>Interviewing stakeholders</strong>, <strong>customers</strong>, and <strong>users</strong> gave us comprehensive <strong>insight</strong> into <strong>current state workflows</strong>, and system and task <strong>dependencies</strong>.</p>
+            <p>Overlaying this with <strong>pain points and needs</strong>, we invited users to <strong>ideate</strong> a future vision for the Last Mile Delivery experience via remote <strong>co-design</strong> workshops.</p>
+            <p>From the data and insight gathered throughout the discovery phase, we created a solution <strong>concept</strong> with a set of potential product features, and helped the client <strong>prioritise</strong> and define them into an <strong>MVP</strong>.</p>
+            <p>The <strong>design</strong> and implementation of the new platform was rolled out in alignment with the enterprise level strategic transformation roadmap.</p>
+            <p>The <strong>design and development</strong> teams embedded with Ryder's in-house technology group and delivered the product in <strong>agile</strong> fashion over the course of two release cycles.</p>
+          </div>
+          <div class="case-block-img">
+            <div class="img-frame">
+              <img src="images/image-10.webp" alt="Ryder final design — order screen" onclick="openModal(this)">
+            </div>
           </div>
         </div>
-      </div>
-      <div class="case-images">
-        <div class="img-exhibit">
-          <div class="img-frame-pair">
-            <img src="images/image-10.webp" alt="Screenshot 1" onclick="openModal(this)">
-            <img src="images/image-11.webp" alt="Screenshot 2" onclick="openModal(this)">
+
+        <div class="case-block-row">
+          <div>
+            <p class="cl">Solution</p>
+            <p>We created an <strong>intuitive</strong>, unified <strong>experience</strong> for Ryder Last Mile staff, customers, and their end consumers, that <strong>integrated seamlessly</strong> with existing off-the-shelf solutions.</p>
+            <p>We focused on streamlining the <strong>IA and related task flows</strong>, minimising screen volume and nesting, and reducing <strong>cognitive load</strong> on users by radically <strong>simplifying layouts</strong> and interactions.</p>
+            <p>The creation of a library of <strong>UI and interaction patterns</strong> ensures future-proof consistency in the experience throughout coming releases.</p>
+            <p class="cl" style="margin-top:2rem;">Outcomes</p>
+            <div class="stats">
+              <div class="stat"><div class="stat-n" style="font-size:1rem;">Unified</div><div class="stat-l">Experience across staff, customers and consumers</div></div>
+              <div class="stat"><div class="stat-n" style="font-size:1rem;">MVP</div><div class="stat-l">Defined and prioritised from discovery insights</div></div>
+              <div class="stat"><div class="stat-n" style="font-size:1rem;">2</div><div class="stat-l">Agile release cycles delivered</div></div>
+              <div class="stat"><div class="stat-n" style="font-size:1rem;">Pattern library</div><div class="stat-l">Established for future consistency</div></div>
+            </div>
           </div>
-          
+          <div class="case-block-img">
+            <div class="img-frame">
+              <img src="images/image-11.webp" alt="Ryder final design — location configuration screen" onclick="openModal(this)">
+            </div>
+          </div>
         </div>
       </div>
     </div>
