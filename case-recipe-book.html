@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Book | Simon Hodgon</title>
+<meta name="description" content="Recipe Book: a recipe app Simon Hodgon designed and built with AI, from research to a live product.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:  #1a6bb5;
+    --red:   #c0392b;
+    --ink:   #1a1a1a;
+    --mid:   #4a4a4a;
+    --faint: #767676;
+    --rule:  #e0e0e0;
+    --bg:    #ffffff;
+    --off:   #f5f5f3;
+    --head:  'Nunito', sans-serif;
+    --body:  'Nunito', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-weight: 400; font-size: 1rem; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  .dr { display: block; font-size: 1.1rem; letter-spacing: 0.5em; color: var(--blue); font-weight: 700; line-height: 1; }
+  .dr.red { color: var(--red); }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--rule); padding: 0 max(2rem,6vw); display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-name { font-family: var(--head); font-weight: 800; font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--red); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--head); font-weight: 600; font-size: 0.9rem; letter-spacing: 0; text-transform: none; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
+  section { padding: 6rem 0; }
+
+  #hero { padding-top: calc(56px + 5rem); padding-bottom: 5rem; border-bottom: 1px solid var(--rule); }
+  .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .eyebrow { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); }
+  h1 { font-family: var(--head); font-weight: 800; font-size: clamp(3.5rem,7vw,5.5rem); line-height: 1; letter-spacing: -0.01em; color: var(--red); margin: 0.8rem 0 1.2rem; }
+  .hero-role { font-family: var(--head); font-weight: 700; font-size: 1.15rem; letter-spacing: 0; color: var(--blue); margin-top: 1rem; }
+  .hero-contact { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .hero-contact a { font-family: var(--head); font-weight: 600; font-size: 1rem; letter-spacing: 0; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .hero-contact a:hover { color: var(--blue); }
+  .hero-bio { font-size: 1rem; line-height: 1.75; font-weight: 400; }
+  .hero-bio p + p { margin-top: 1rem; }
+
+  .sh { margin-bottom: 4rem; }
+  .sh .eyebrow { margin-bottom: 0.5rem; display: block; }
+  h2 { font-family: var(--head); font-weight: 800; font-size: clamp(2rem,4vw,3rem); line-height: 1.05; letter-spacing: -0.01em; color: var(--red); }
+  h2 .b { color: var(--blue); }
+  h2 .r { color: var(--red); }
+  .sh .dr { margin-top: 1.1rem; }
+
+  #about { background: var(--off); border-top: none; border-bottom: 1px solid var(--rule); }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 3rem; }
+  .skill-item { background: var(--bg); border: 2px solid var(--blue); color: var(--blue); font-family: var(--head); font-weight: 700; font-size: 0.9rem; padding: 0.45rem 1.1rem; border-radius: 999px; letter-spacing: 0; text-transform: none; }
+  .skill-item::before { content: ''; }
+
+  #work { border-top: none; }
+
+  .case { padding-top: 0; margin-top: 0; }
+  .case-divider { text-align: center; font-size: 1rem; letter-spacing: 0.5em; color: var(--blue); font-weight: 700; padding: 3rem 0; }
+  .case:first-of-type { margin-top: 0; padding-top: 0; }
+
+
+  .case-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 3rem; }
+  .case-head > div, .case-head > .role-box { min-width: 0; }
+  .case-logo { height: 36px; max-width: 100%; object-fit: contain; object-position: left; display: block; margin-bottom: 1rem; }
+  .case-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.4rem; }
+  h3 { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blue); }
+  .case-year { font-family: var(--head); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.5rem; }
+  .role-box { background: var(--off); border: 1px solid var(--rule); border-left: 3px solid var(--blue); padding: 1.25rem 1.5rem; flex: 1; min-width: 0; }
+  .role-label { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+  .role-box p { font-size: 0.95rem; line-height: 1.65; }
+
+  .case-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+  .case-flow { display: flex; flex-direction: column; gap: 3.5rem; }
+  .case-block-text { max-width: none; }
+  .case-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .case-block-row .case-block-img { position: sticky; top: 6rem; }
+  .case-more-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); }
+  @media(max-width:780px){
+    .case-block-row { grid-template-columns: 1fr; gap: 1.5rem; }
+    .case-block-row .case-block-img { position: static; }
+  }
+  .cl { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.7rem; margin-top: 2.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
+  .cl:first-child { margin-top: 0; }
+  .case-cols p, .case-flow p { font-size: 1rem; margin-bottom: 1.1rem; line-height: 1.75; }
+  .case-cols ul, .case-flow ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.25rem; }
+  .case-cols ul li, .case-flow ul li { font-size: 1rem; padding-left: 1.25rem; position: relative; line-height: 1.6; }
+  .case-cols ul li::before, .case-flow ul li::before { content: '*'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+  .case-flow strong { font-weight: 700; color: var(--ink); }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; border: 1px dotted var(--rule); margin-top: 0.5rem; }
+  .stat { padding: 1rem; text-align: center; border-bottom: 1px dotted var(--rule); }
+  .stat:nth-child(odd) { border-right: 1px dotted var(--rule); }
+  .stat:nth-last-child(-n+2) { border-bottom: none; }
+  .stat-n { font-family: var(--head); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--blue); margin-bottom: 0.2rem; }
+  .stat-l { font-size: 0.8rem; color: var(--mid); line-height: 1.3; }
+
+
+  .img-frame-pair { background: #efefed; border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .img-frame-pair img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); cursor: pointer; transition: opacity 0.2s; }
+  .img-frame-pair img:hover { opacity: 0.85; }
+  .img-frame img { cursor: pointer; transition: opacity 0.2s; }
+  .img-frame img:hover { opacity: 0.85; }
+  .img-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: flex-start; justify-content: center; padding: 2rem; overflow-y: auto; }
+  .img-modal.open { display: flex; }
+  .img-modal img { max-width: 90vw; width: auto; height: auto; border-radius: 8px; box-shadow: 0 8px 48px rgba(0,0,0,0.5); display: block; margin: 2rem auto; }
+  .img-modal-close { position: fixed; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; font-family: var(--head); font-weight: 300; }
+  .img-exhibit { margin-top: 2rem; }
+  .img-exhibit + .img-exhibit { margin-top: 3rem; }
+  .img-quote { font-family: var(--head); font-weight: 800; font-size: clamp(1.1rem,2vw,1.35rem); color: var(--ink); line-height: 1.25; margin-bottom: 1.25rem; }
+  .img-quote::before { content: '\201C'; color: var(--blue); }
+  .img-quote::after { content: '\201D'; color: var(--blue); }
+  .img-frame { background: #efefed; border-radius: 12px; padding: 1.5rem; }
+  .img-frame img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+  .img-frame-pair { background: #efefed; border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .img-frame-pair img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+  .img-credit { font-style: italic; font-size: 0.88rem; color: var(--mid); margin-top: 0.85rem; text-align: center; }
+  .case-images { margin-top: 3.5rem; padding: 3rem; border-top: 3px solid var(--rule); background: var(--off); }
+  .case-images .img-label { font-family: var(--head); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.75rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--blue); display: block; }
+  .imgs-single img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 12px 48px rgba(0,0,0,0.14); min-height: 320px; object-fit: cover; object-position: top; }
+  .imgs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .imgs-pair img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .imgs-featured { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+  .imgs-featured .featured-main img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .imgs-featured .featured-stack { display: flex; flex-direction: column; gap: 2rem; }
+  .imgs-featured .featured-stack img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .img-cap { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; display: block; }
+
+  #other { background: var(--bg); border-top: 1px solid var(--rule); }
+  .other-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 1.5rem; background: transparent; border: none; margin-top: 3rem; }
+  .other-card { background: #ffffff; overflow: hidden; border: 1px solid var(--rule); border-radius: 8px; transition: box-shadow 0.2s, transform 0.2s; }
+  .other-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .other-card-img { width: 100%; height: 200px; object-fit: contain; object-position: center; display: block; border-bottom: 1px solid var(--rule); cursor: pointer; transition: opacity 0.2s; background: #ffffff; }
+  .other-card-img:hover { opacity: 0.85; }
+  .other-card-body { padding: 1.4rem 1.5rem 1.6rem; }
+  .other-label { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+  .other-card h4 { font-family: var(--head); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; color: var(--blue); line-height: 1.2; margin-bottom: 0.65rem; }
+  .other-card p { font-size: 0.9rem; color: var(--mid); line-height: 1.65; }
+  .other-year { font-family: var(--head); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; }
+
+  footer { padding: 5rem 0 4rem; text-align: center; }
+  footer .eyebrow { display: block; margin-bottom: 0.5rem; }
+  footer h2 { margin-bottom: 1.75rem; }
+  .footer-links { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; }
+  .footer-links a { font-family: var(--head); font-weight: 700; font-size: 1.1rem; letter-spacing: 0; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+  .fu { opacity:0; animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .d1{animation-delay:.05s} .d2{animation-delay:.15s} .d3{animation-delay:.28s} .d4{animation-delay:.4s}
+
+  @media(max-width:780px){
+    .hero-inner{grid-template-columns:1fr;gap:3rem;}
+    .case-head{grid-template-columns:1fr;}
+    .role-box{max-width:100%;min-width:0;}
+    .case-cols{grid-template-columns:1fr;gap:2.5rem;}
+    .imgs-pair,.imgs-featured{grid-template-columns:1fr;}
+    .stats{flex-wrap:wrap;}
+    .nav-links{display:none;}
+    h1{font-size:3.5rem;}
+  }
+
+  /* Case study page */
+  .case-page { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
+  .case-page-header { padding: calc(56px + 3rem) 0 0.75rem; margin-bottom: 0; display: flex; align-items: center; justify-content: space-between; }
+  .case-page-back { font-family: var(--head); font-weight: 600; font-size: 0.8rem; color: var(--faint); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; }
+  .case-page-back:hover { color: var(--mid); }
+  .case-nav { display: flex; align-items: center; justify-content: space-between; padding: 2rem 0; margin-top: 2rem; }
+  .case-nav-eyebrow { font-family: var(--head); font-weight: 600; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); display: block; }
+  .case-nav a { font-family: var(--head); font-weight: 400; font-size: 0.9rem; color: var(--blue); text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+  .case-nav a:hover { color: var(--red); }
+  .case-nav .spacer { flex: 1; }
+
+  /* Summary cards on home page */
+  .summary-grid { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .summary-card { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+  .summary-card:last-child { border-bottom: none; }
+  .summary-card.reverse { direction: rtl; }
+  .summary-card.reverse > * { direction: ltr; }
+  .summary-card-img { width: 100%; border-radius: 8px; overflow: hidden; }
+  .summary-card-img img { width: 100%; display: block; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
+  .summary-card-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+  .summary-card-title { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blue); margin-bottom: 1rem; }
+  .summary-card-desc { font-size: 1rem; color: var(--mid); line-height: 1.75; margin-bottom: 1.5rem; }
+  .summary-card-link { display: inline-block; font-family: var(--head); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--bg); background: var(--blue); padding: 0.6rem 1.25rem; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+  .summary-card-link:hover { background: var(--red); }
+  @media(max-width:780px) {
+    .summary-card, .summary-card.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+    .case-nav { flex-wrap: wrap; gap: 1rem; }
+  }
+
+
+  /* I made this: the opener borrows Recipe Book's own look (warm paper, ink, italic serif, the orange it uses for choices) */
+  :root { --rb-paper:#FBF8F2; --rb-oat:#EFE9DF; --rb-ink:#1A1A1A; --rb-muted:#5F5A52; --rb-choice:#E36A1C; --rb-serif:'Newsreader', Georgia, serif; }
+  .made { background: var(--rb-paper); border-bottom: 1px solid var(--rule); padding: calc(56px + 2.5rem) max(2rem,6vw) 4rem; }
+  .made-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.15fr); gap: 4rem; align-items: center; }
+  .made-copy { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+  .made-tag { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rb-muted); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .made-tag span { background: var(--rb-choice); color: var(--rb-ink); letter-spacing: 0.08em; padding: 0.35rem 0.85rem; border-radius: 999px; }
+  .made-title { display: flex; align-items: center; gap: 1rem; }
+  .made-illo { flex: none; display: inline-flex; }
+  .made-illo svg { width: 84px; height: 84px; }
+  .made h1 { font-family: var(--rb-serif); font-style: italic; font-weight: 500; color: var(--rb-ink); font-size: clamp(3rem,7vw,5.25rem); line-height: 1; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+  .made-lede { font-size: 1.15rem; line-height: 1.6; color: var(--rb-ink); max-width: 34rem; }
+  .made-facts { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.95rem; color: var(--rb-muted); padding-top: 1rem; border-top: 1px solid var(--rule); }
+  .made-facts b { display: inline-block; min-width: 6.5rem; font-family: var(--head); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rb-ink); }
+  .made-links { font-size: 0.95rem; color: var(--rb-muted); font-style: italic; }
+  .made-img img { width: 100%; display: block; border-radius: 12px; cursor: pointer; }
+  .made .case-page-back { align-self: flex-start; }
+  .case-page { padding-top: 4rem; }
+  .quote-card { background: var(--rb-paper); border-radius: 12px; padding: 1.75rem; margin-bottom: 1.5rem; }
+  .quote-card .img-quote { font-family: var(--rb-serif); font-style: italic; font-weight: 500; font-size: clamp(1.3rem,2.4vw,1.6rem); line-height: 1.25; margin-bottom: 0.75rem; }
+  .quote-src { font-size: 0.85rem; color: var(--mid); }
+  .flow-wrap { margin-top: 1.5rem; overflow-x: auto; background: var(--off); border-radius: 12px; padding: 1.5rem; }
+  .flow-wrap svg { display: block; width: 100%; min-width: 720px; height: auto; }
+  .flow-wrap + .stack-list { margin-top: 1.75rem; }
+  .tbl-wrap { overflow-x: auto; }
+  table.tools { width: 100%; border-collapse: collapse; font-size: 0.92rem; line-height: 1.5; }
+  table.tools th, table.tools td { text-align: left; vertical-align: top; padding: 0.85rem 0.75rem; border-bottom: 1px solid var(--rule); }
+  table.tools thead th { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); border-bottom: 2px solid var(--blue); }
+  table.tools tbody th { font-family: var(--head); font-weight: 700; color: var(--ink); white-space: nowrap; }
+  ol.stages { list-style: none; counter-reset: st; display: flex; flex-direction: column; gap: 0.7rem; margin: 0.25rem 0 1.1rem; }
+  ol.stages li { counter-increment: st; position: relative; padding-left: 2.25rem; line-height: 1.6; }
+  ol.stages li::before { content: counter(st); position: absolute; left: 0; top: 0.1rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--rb-oat); font-family: var(--rb-serif); font-style: italic; font-weight: 500; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; }
+  ol.stages b { font-weight: 700; }
+  .img-frame-pair img, .img-frame img { cursor: pointer; }
+  .case-flow ul + p { margin-top: 1rem; }
+  .stats { margin-top: 0; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  @media (max-width:780px) {
+    .made-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .made { padding-top: calc(56px + 1.5rem); padding-bottom: 3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCG972TZXF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JCG972TZXF');
+</script>
+</head>
+<body>
+<nav>
+  <a href="index.html#hero" class="nav-name">Simon Hodgon</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#work">Case studies</a></li>
+    <li><a href="index.html#other">Other work</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+<header class="made">
+  <div class="made-inner">
+    <div class="made-copy">
+      <a href="index.html" class="case-page-back">&#8592; Back to portfolio</a>
+      <p class="made-tag"><span>I made this</span> Personal project &middot; 2026</p>
+      <div class="made-title">
+        <span class="made-illo"><svg aria-hidden="true" width="84" height="84" viewBox="0 0 80 80"><defs><pattern id="cdots" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.1" fill="#1A1A1A"/></pattern><clipPath id="cdotsc"><path d="M6 40h52v6a20 12 0 0 1-20 12h-12a20 12 0 0 1-20-12z"/></clipPath></defs><g transform="translate(0,-8)"><ellipse cx="34" cy="64" rx="26" ry="3.5" fill="#1A1A1A"/><path d="M57 40l18-8" stroke="#1A1A1A" stroke-width="7" stroke-linecap="round"/><path d="M6 40h52v6a20 12 0 0 1-20 12h-12a20 12 0 0 1-20-12z" fill="#6FB3E8" stroke="#1A1A1A" stroke-width="3" stroke-linejoin="round"/><rect x="34" y="38" width="26" height="22" fill="url(#cdots)" opacity=".35" clip-path="url(#cdotsc)"/><ellipse cx="32" cy="40" rx="26" ry="9" fill="#1A1A1A"/><path d="M18 40c0-6 8-8 13-6 5-4 14-2 14 3 4 1 4 6-1 7-4 3-12 3-15 1-6 1-11-1-11-5z" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2.2" stroke-linejoin="round"/><circle cx="32" cy="38" r="5" fill="#F2D35B" stroke="#1A1A1A" stroke-width="2.2"/><path d="M24 26c-2-4 2-6 0-10M34 24c-2-4 2-6 0-10" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" fill="none"/></g></svg></span>
+        <h1>Recipe Book</h1>
+      </div>
+      <p class="made-lede">A recipe app I designed and built in collaboration with AI, for a problem I actually have. I set the direction, made the decisions and tested every step. AI did the production. I&rsquo;ve spent my career designing for the broader population but this was an opportunity to make something that works for me as the primary user!</p>
+      <ul class="made-facts">
+        <li><b>Role</b> Designer, product owner and QA</li>
+        <li><b>Tools</b> Claude, Claude Design, Claude Code, Miro, Figma, Lovable</li>
+        <li><b>Built with</b> React, GitHub, Vercel, Supabase, Anthropic API</li>
+      </ul>
+      <p class="made-links">The live app is being built now and launches soon.</p>
+    </div>
+    <div class="made-img"><img src="images/recipe-hero.webp" alt="Recipe Book on a phone: the recipe library, a recipe page with ingredients marked Have it or To buy, and cook mode with ticked steps" onclick="openModal(this)"></div>
+  </div>
+</header>
+
+<div class="case-page">
+  <div class="case-flow">
+
+    <div class="case-block-text">
+      <p class="cl">Why I made it</p>
+      <p>I have a large number of recipes saved across Instagram, Facebook, Notion and the web. I often can't remember where something is, or end up searching again for a recipe I've cooked before. Online recipes bury the method under long introductions and ads, marinating time often catches me out, and shopping happens across the supermarket, the grocer or the butcher, so one long list in Notes doesn't cut it.</p>
+      <p>I wanted one place to keep every recipe in a clean, consistent format, see at a glance how long it takes, scale it for four or for one, and turn my choices into a shopping list grouped into the way I shop.</p>
+      <p>It was also a deliberate test. I wanted to explore first-hand how far a designer can take an idea with AI, from research to a live product, and where human judgement still has a role.</p>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">Research and definition</p>
+        <p>I started the way I would with any client: an audit of how I find, save, shop for and cook recipes, a journey map, and a problem statement. Everything lived on a Miro board that became the source of truth for the whole project. Requirements, flows, decisions and tool notes all went there, so nothing was decided only in a chat window.</p>
+        <p>Four principles came out of it and steered every later decision:</p>
+        <ul>
+          <li><strong>Straight to the recipe.</strong> A clean, consistent format with no preamble.</li>
+          <li><strong>Time up front.</strong> Prep, marinating and cooking visible before you commit.</li>
+          <li><strong>Made for the kitchen.</strong> The screen stays on, and ingredients and steps are easy to tick off with messy hands.</li>
+          <li><strong>AI drafts, I confirm.</strong> Anything AI extracts is clearly shown and easy to correct.</li>
+        </ul>
+        <p>Cook mode wasn't in my first scope. It came straight from the research. Bulk import from Notion went the other way: 40 recipes is few enough to add one at a time.</p>
+      </div>
+      <div class="case-block-img">
+        <div class="quote-card">
+          <p class="img-quote">I didn't realise it needed marinating. Have I added the garlic yet?</p>
+          <p class="quote-src">From my own journey map, the moment cook mode was born</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-block-text">
+      <p class="cl">How I worked with AI</p>
+      <p>I gave each tool one job and kept myself in the middle. AI produced the screens, the design system and the code, but every brief, decision and review came from me. When two tools needed to talk, I was the go-between, which kept me in control of what got designed and built.</p>
+      <p>Early on I gave the same brief to Claude Design, Figma Make, Lovable and Miro's AI, then built the app in both Lovable and Claude to compare. The tools that had the reasoning behind the design produced the most coherent results, so I settled on one tool per job. Two requirements and one of Lovable's ideas, splitting quantity and unit, came out of that comparison.</p>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">A design system as the single source</p>
+        <p>I set the look first, working through a range of inspirations to arrive at a concept: ink on warm paper, an italic serif for headings and highly legible type for everything else, with colour kept for illustrations and meaning. That became a design system of 16 colour tokens, 9 type styles, spacing, radii and 20 documented components.</p>
+        <p>It lives in three places that stay in step:</p>
+        <ul>
+          <li><strong>Claude Design</strong>, where the tokens, guidance and component previews are documented.</li>
+          <li><strong>Figma</strong>, as variables, text styles and components, built and updated through Figma's connector rather than by hand.</li>
+          <li><strong>The code</strong>, where the app's theme is read straight from the same tokens file, so a colour change in the system is a colour change in the product.</li>
+        </ul>
+        <p>Every colour has one job. Amber only ever means "the AI wants you to check this". Orange shows what you've chosen. Ink is for actions and anything done. Each choice is checked against WCAG 2.2 AA, which dictated many colour decisions.</p>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/recipe-design-system.webp" alt="Recipe Book design system: colour tokens, Newsreader and Atkinson Hyperlegible type, and components including time tiles, Have it and To buy pills, servings, meal tags and the amber Check this card" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">Colour, type and components from the design system</p>
+      </div>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">Designing for AI uncertainty</p>
+        <p>The core of the app is capture: paste a link or some text, or add screenshots, and AI turns it into a tidy recipe. AI gets things wrong, so the design had to make its uncertainty visible without making the user feel they're filling in a form.</p>
+        <ul>
+          <li><strong>One reserved colour.</strong> Amber, with a dashed outline and a question mark, means "the AI wants you to look at this". Nothing else in the app uses it, and it never relies on colour alone.</li>
+          <li><strong>Uncertain is different from missing.</strong> A guessed amount gets <em>Edit</em> and <em>Looks right</em>. A missing one gets <em>Add</em>, because there's nothing to accept. This came out of the tool comparison.</li>
+          <li><strong>Gaps never block saving.</strong> Lovable stopped me saving a half-read recipe, which felt wrong in practice. Incomplete recipes save, and stay flagged until I finish them.</li>
+          <li><strong>The AI never invents.</strong> It's told never to make up amounts, times or steps, and to say why it isn't sure.</li>
+        </ul>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame-pair">
+          <img src="images/recipe-review.webp" alt="Review screen: one item to check, with time tiles, ingredients and an amber Check this card" onclick="openModal(this)">
+          <img src="images/recipe-partial.webp" alt="Partial capture: cook time not found, an amount missing and the method not found, each flagged in amber" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">Reviewing a capture, and a capture that only partly worked</p>
+      </div>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">Decisions AI didn't make</p>
+        <p>The most useful thing I brought wasn't screens, it was judgement. A few examples:</p>
+        <ul>
+          <li><strong>Shop in packs.</strong> You can't buy 2 tablespoons of miso, so the list shows <em>1 jar</em>, with AI suggesting the pack size.</li>
+          <li><strong>Lighter type.</strong> Both test builds felt heavy, so I moved to a font with a true medium weight.</li>
+          <li><strong>Colour that passes.</strong> Orange for choices, with dark text, because white failed contrast.</li>
+          <li><strong>Public, but only I can add.</strong> Anyone can browse; only I can change anything, enforced by the database.</li>
+          <li><strong>Credit the source.</strong> Every recipe links back to where it came from.</li>
+        </ul>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/recipe-list.webp" alt="Shopping list grouped into Meat, Fruit and veg, and Groceries, with each item labelled by the recipe it came from" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">The shopping list, grouped the way I shop</p>
+      </div>
+    </div>
+
+    <div class="case-block-text">
+      <p class="cl">How it's built</p>
+      <p>Previously I'd only really designed for engineers to build, so this is where I learned most. The app is a real product on a modern stack, and connecting the pieces was part of the job:</p>
+      <div class="flow-wrap"><svg viewBox="0 0 1000 430" role="img" aria-label="How Recipe Book is built. Design side: Claude, connected to Miro, Figma and Claude Design, keeps requirements, components and design docs up to date and pushes docs to GitHub. Claude Code builds from those docs and pushes code to GitHub. GitHub deploys to Vercel, which hosts the app, a preview for every branch and server functions. The app uses Supabase for the database, sign-in and image storage, and the server calls the Anthropic API to read recipes. I brief, decide, review and test at every step."><title>How Recipe Book is built</title><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4a4a4a"/></marker></defs><rect x="0" y="0" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Claude</text><text x="16" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Design partner, connected to</text><text x="16" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Miro, Figma and Claude Design</text><rect x="0" y="158" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Claude Code</text><text x="16" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Builds each stage from the</text><text x="16" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">brief and CLAUDE.md</text><rect x="340" y="79" width="220" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="356" y="109" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">GitHub</text><text x="356" y="133" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Code, design docs and</text><text x="356" y="153" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">one branch per stage</text><rect x="650" y="0" width="350" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="666" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Vercel</text><text x="666" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Hosts the app, a preview per</text><text x="666" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">branch, and server functions</text><rect x="650" y="158" width="160" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="666" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Supabase</text><text x="666" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Database, sign-in,</text><text x="666" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">image storage</text><rect x="840" y="158" width="160" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="856" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Anthropic API</text><text x="856" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Reads recipes</text><text x="856" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">on the server</text><path d="M250 59H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah)"/><text x="290" y="50" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">docs</text><path d="M250 217H290V160H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah)"/><text x="270" y="250" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">code</text><path d="M560 138H600V59H640" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah)"/><text x="600" y="175" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">deploys</text><path d="M730 118V148" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah)"/><path d="M920 118V148" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah)"/><rect x="0" y="316" width="1000" height="100" rx="12" fill="#c0392b"/><text x="24" y="352" font-family="Nunito, sans-serif" font-weight="800" font-size="18" fill="#ffffff">Me, at every step</text><text x="24" y="380" font-family="Nunito, sans-serif" font-size="15" fill="#ffffff">Requirements, briefs, decisions, reviews and testing. I carry plans and answers between Claude and Claude Code.</text></svg></div>
+      <ul class="stack-list">
+        <li><strong>GitHub</strong> holds the code. Each stage is built on its own branch and merged once I've tested it.</li>
+        <li><strong>Vercel</strong> hosts the app. Every branch gets its own preview address to test on my phone, and merging to main puts it live.</li>
+        <li><strong>Supabase</strong> provides the database, my sign-in and image storage. Row level security in the database means only my account can change anything, whatever the app shows.</li>
+        <li><strong>Anthropic's API</strong> reads recipes from links, text and screenshots. It runs on the server, so the key never reaches the browser and visitors can't use it.</li>
+        <li><strong>Claude, connected to Miro, Figma and GitHub,</strong> keeps the requirements board, the Figma components and the repository's design docs up to date as decisions change.</li>
+      </ul>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">From prototype to live product</p>
+        <p>I wrote a build brief in five stages, each one finished, deployed and tested by me before the next started:</p>
+        <ol class="stages">
+          <li><b>Foundations.</b> The prototype rebuilt as a proper website, checked screen by screen against the designs.</li>
+          <li><b>My sign-in and public viewing.</b> Recipes anyone can see, planning that syncs across my devices.</li>
+          <li><b>Adding recipes with AI.</b> Capture running on the server.</li>
+          <li><b>Images and editing.</b></li>
+          <li><b>Ready to share.</b></li>
+        </ol>
+        <p>Claude Code builds from a project instructions file I wrote, covering how I like to work (review before implementing, no unprompted changes, plain explanations) and the non-negotiables: WCAG 2.2 AA, mobile first, and the AI never inventing amounts. An automated accessibility check found no issues on any screen of the first build.</p>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/recipe-design-vs-build.webp" alt="Side-by-side of the designed recipe page and the first build, matching closely" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">Design (left) and the first build (right), compared screen by screen</p>
+      </div>
+    </div>
+
+    <div class="case-block-text">
+      <p class="cl">What I learned</p>
+      <ul>
+        <li><strong>AI is fast at production but direction is still an important part of the job.</strong> The better my brief and reasoning, the better the output. Context beat cleverness every time.</li>
+        <li><strong>Keep a source of truth outside the chat.</strong> The connected Miro board meant every decision had a home, and every tool could be pointed at the same thinking.</li>
+        <li><strong>One tool per job.</strong> Running two tools in parallel doubled the work. Pick deliberately, then commit.</li>
+        <li><strong>Design the uncertainty, not just the happy path.</strong> Most of the real design work was in what happens when the AI is unsure or wrong.</li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="case-more-label">More screens</p>
+      <div class="img-frame-pair" style="margin-bottom:1.5rem;">
+        <img src="images/recipe-library-desktop.webp" alt="Recipe library on desktop with meal, time and other filters" onclick="openModal(this)">
+        <img src="images/recipe-desktop.webp" alt="Recipe page on desktop with ingredients in a right-hand column" onclick="openModal(this)">
+      </div>
+      <div class="img-frame-pair">
+        <img src="images/recipe-capture.webp" alt="Add a recipe sheet with Link, Text and Screenshot options" onclick="openModal(this)">
+        <img src="images/recipe-cook.webp" alt="Cook mode on a phone: ingredients and steps ticked off in any order, with the next step highlighted" onclick="openModal(this)">
+      </div>
+    </div>
+  </div>
+
+  <div class="case-nav">
+    <a href="case-westpac.html"><span class="case-nav-eyebrow">Previous</span>&#8592; Westpac institutional banking</a>
+    <span class="spacer"></span>
+    <a href="index.html#work"><span class="case-nav-eyebrow">Back to</span>All case studies &#8594;</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="container">
+    <span class="dr" style="display:block;text-align:center;margin-bottom:1.5rem;">* * * * *</span>
+    <span class="eyebrow" style="display:block;margin-bottom:0.5rem;text-align:center;">Get in touch</span>
+    <h2 style="text-align:center;margin-bottom:1.75rem;">Let&rsquo;s work <span class="b">together</span></h2>
+    <div class="footer-links">
+      <a href="tel:0404613513">0404 613 513</a>
+      <a href="mailto:shodgon@gmail.com">shodgon@gmail.com</a>
+      <a href="https://www.linkedin.com/in/simon-hodgon-64b7b92" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<div class="img-modal" id="imgModal" onclick="closeModal()" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="img-modal-close" onclick="closeModal()" aria-label="Close image" role="button">&times;</button>
+  <img id="modalImg" src="" alt="Enlarged view">
+</div>
+<script>
+function openModal(el) {
+  document.getElementById('modalImg').src = el.src;
+  document.getElementById('modalImg').alt = el.alt || 'Enlarged view';
+  document.getElementById('imgModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('imgModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>
