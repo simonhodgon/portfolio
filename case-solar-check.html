@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar Check | Simon Hodgon</title>
+<meta name="description" content="Solar Check: a solar yield app Simon Hodgon designed and built with AI, comparing his home panels like for like across years.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&family=Newsreader:ital,opsz,wght@1,6..72,500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:  #1a6bb5;
+    --red:   #c0392b;
+    --ink:   #1a1a1a;
+    --mid:   #4a4a4a;
+    --faint: #767676;
+    --rule:  #e0e0e0;
+    --bg:    #ffffff;
+    --off:   #f5f5f3;
+    --head:  'Nunito', sans-serif;
+    --body:  'Nunito', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-weight: 400; font-size: 1rem; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+  .dr { display: block; font-size: 1.1rem; letter-spacing: 0.5em; color: var(--blue); font-weight: 700; line-height: 1; }
+  .dr.red { color: var(--red); }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--rule); padding: 0 max(2rem,6vw); display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-name { font-family: var(--head); font-weight: 800; font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--red); text-decoration: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: var(--head); font-weight: 600; font-size: 0.9rem; letter-spacing: 0; text-transform: none; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
+  section { padding: 6rem 0; }
+
+  #hero { padding-top: calc(56px + 5rem); padding-bottom: 5rem; border-bottom: 1px solid var(--rule); }
+  .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .eyebrow { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); }
+  h1 { font-family: var(--head); font-weight: 800; font-size: clamp(3.5rem,7vw,5.5rem); line-height: 1; letter-spacing: -0.01em; color: var(--red); margin: 0.8rem 0 1.2rem; }
+  .hero-role { font-family: var(--head); font-weight: 700; font-size: 1.15rem; letter-spacing: 0; color: var(--blue); margin-top: 1rem; }
+  .hero-contact { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .hero-contact a { font-family: var(--head); font-weight: 600; font-size: 1rem; letter-spacing: 0; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+  .hero-contact a:hover { color: var(--blue); }
+  .hero-bio { font-size: 1rem; line-height: 1.75; font-weight: 400; }
+  .hero-bio p + p { margin-top: 1rem; }
+
+  .sh { margin-bottom: 4rem; }
+  .sh .eyebrow { margin-bottom: 0.5rem; display: block; }
+  h2 { font-family: var(--head); font-weight: 800; font-size: clamp(2rem,4vw,3rem); line-height: 1.05; letter-spacing: -0.01em; color: var(--red); }
+  h2 .b { color: var(--blue); }
+  h2 .r { color: var(--red); }
+  .sh .dr { margin-top: 1.1rem; }
+
+  #about { background: var(--off); border-top: none; border-bottom: 1px solid var(--rule); }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 3rem; }
+  .skill-item { background: var(--bg); border: 2px solid var(--blue); color: var(--blue); font-family: var(--head); font-weight: 700; font-size: 0.9rem; padding: 0.45rem 1.1rem; border-radius: 999px; letter-spacing: 0; text-transform: none; }
+  .skill-item::before { content: ''; }
+
+  #work { border-top: none; }
+
+  .case { padding-top: 0; margin-top: 0; }
+  .case-divider { text-align: center; font-size: 1rem; letter-spacing: 0.5em; color: var(--blue); font-weight: 700; padding: 3rem 0; }
+  .case:first-of-type { margin-top: 0; padding-top: 0; }
+
+
+  .case-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 3rem; }
+  .case-head > div, .case-head > .role-box { min-width: 0; }
+  .case-logo { height: 36px; max-width: 100%; object-fit: contain; object-position: left; display: block; margin-bottom: 1rem; }
+  .case-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.4rem; }
+  h3 { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blue); }
+  .case-year { font-family: var(--head); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.5rem; }
+  .role-box { background: var(--off); border: 1px solid var(--rule); border-left: 3px solid var(--blue); padding: 1.25rem 1.5rem; flex: 1; min-width: 0; }
+  .role-label { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+  .role-box p { font-size: 0.95rem; line-height: 1.65; }
+
+  .case-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+  .case-flow { display: flex; flex-direction: column; gap: 3.5rem; }
+  .case-block-text { max-width: none; }
+  .case-block-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .case-block-row .case-block-img { position: sticky; top: 6rem; }
+  .case-more-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule); }
+  @media(max-width:780px){
+    .case-block-row { grid-template-columns: 1fr; gap: 1.5rem; }
+    .case-block-row .case-block-img { position: static; }
+  }
+  .cl { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.7rem; margin-top: 2.25rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
+  .cl:first-child { margin-top: 0; }
+  .case-cols p, .case-flow p { font-size: 1rem; margin-bottom: 1.1rem; line-height: 1.75; }
+  .case-cols ul, .case-flow ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.25rem; }
+  .case-cols ul li, .case-flow ul li { font-size: 1rem; padding-left: 1.25rem; position: relative; line-height: 1.6; }
+  .case-cols ul li::before, .case-flow ul li::before { content: '*'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+  .case-flow strong { font-weight: 700; color: var(--ink); }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; border: 1px dotted var(--rule); margin-top: 0.5rem; }
+  .stat { padding: 1rem; text-align: center; border-bottom: 1px dotted var(--rule); }
+  .stat:nth-child(odd) { border-right: 1px dotted var(--rule); }
+  .stat:nth-last-child(-n+2) { border-bottom: none; }
+  .stat-n { font-family: var(--head); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--blue); margin-bottom: 0.2rem; }
+  .stat-l { font-size: 0.8rem; color: var(--mid); line-height: 1.3; }
+
+
+  .img-frame-pair { background: #efefed; border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .img-frame-pair img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); cursor: pointer; transition: opacity 0.2s; }
+  .img-frame-pair img:hover { opacity: 0.85; }
+  .img-frame img { cursor: pointer; transition: opacity 0.2s; }
+  .img-frame img:hover { opacity: 0.85; }
+  .img-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999; align-items: flex-start; justify-content: center; padding: 2rem; overflow-y: auto; }
+  .img-modal.open { display: flex; }
+  .img-modal img { max-width: 90vw; width: auto; height: auto; border-radius: 8px; box-shadow: 0 8px 48px rgba(0,0,0,0.5); display: block; margin: 2rem auto; }
+  .img-modal-close { position: fixed; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; font-family: var(--head); font-weight: 300; }
+  .img-exhibit { margin-top: 2rem; }
+  .img-exhibit + .img-exhibit { margin-top: 3rem; }
+  .img-quote { font-family: var(--head); font-weight: 800; font-size: clamp(1.1rem,2vw,1.35rem); color: var(--ink); line-height: 1.25; margin-bottom: 1.25rem; }
+  .img-quote::before { content: '\201C'; color: var(--blue); }
+  .img-quote::after { content: '\201D'; color: var(--blue); }
+  .img-frame { background: #efefed; border-radius: 12px; padding: 1.5rem; }
+  .img-frame img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+  .img-frame-pair { background: #efefed; border-radius: 12px; padding: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .img-frame-pair img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+  .img-credit { font-style: italic; font-size: 0.88rem; color: var(--mid); margin-top: 0.85rem; text-align: center; }
+  .case-images { margin-top: 3.5rem; padding: 3rem; border-top: 3px solid var(--rule); background: var(--off); }
+  .case-images .img-label { font-family: var(--head); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.75rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--blue); display: block; }
+  .imgs-single img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 12px 48px rgba(0,0,0,0.14); min-height: 320px; object-fit: cover; object-position: top; }
+  .imgs-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .imgs-pair img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .imgs-featured { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+  .imgs-featured .featured-main img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .imgs-featured .featured-stack { display: flex; flex-direction: column; gap: 2rem; }
+  .imgs-featured .featured-stack img { width: 100%; display: block; border: 1px solid var(--rule); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .img-cap { font-family: var(--head); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; display: block; }
+
+  #other { background: var(--bg); border-top: 1px solid var(--rule); }
+  .other-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(300px,1fr)); gap: 1.5rem; background: transparent; border: none; margin-top: 3rem; }
+  .other-card { background: #ffffff; overflow: hidden; border: 1px solid var(--rule); border-radius: 8px; transition: box-shadow 0.2s, transform 0.2s; }
+  .other-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .other-card-img { width: 100%; height: 200px; object-fit: contain; object-position: center; display: block; border-bottom: 1px solid var(--rule); cursor: pointer; transition: opacity 0.2s; background: #ffffff; }
+  .other-card-img:hover { opacity: 0.85; }
+  .other-card-body { padding: 1.4rem 1.5rem 1.6rem; }
+  .other-label { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+  .other-card h4 { font-family: var(--head); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; color: var(--blue); line-height: 1.2; margin-bottom: 0.65rem; }
+  .other-card p { font-size: 0.9rem; color: var(--mid); line-height: 1.65; }
+  .other-year { font-family: var(--head); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); margin-top: 0.75rem; }
+
+  footer { padding: 5rem 0 4rem; text-align: center; }
+  footer .eyebrow { display: block; margin-bottom: 0.5rem; }
+  footer h2 { margin-bottom: 1.75rem; }
+  .footer-links { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; }
+  .footer-links a { font-family: var(--head); font-weight: 700; font-size: 1.1rem; letter-spacing: 0; color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue); }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+  .fu { opacity:0; animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .d1{animation-delay:.05s} .d2{animation-delay:.15s} .d3{animation-delay:.28s} .d4{animation-delay:.4s}
+
+  @media(max-width:780px){
+    .hero-inner{grid-template-columns:1fr;gap:3rem;}
+    .case-head{grid-template-columns:1fr;}
+    .role-box{max-width:100%;min-width:0;}
+    .case-cols{grid-template-columns:1fr;gap:2.5rem;}
+    .imgs-pair,.imgs-featured{grid-template-columns:1fr;}
+    .stats{flex-wrap:wrap;}
+    .nav-links{display:none;}
+    h1{font-size:3.5rem;}
+  }
+
+  /* Case study page */
+  .case-page { max-width: 1100px; margin: 0 auto; padding: 0 max(2rem,6vw); }
+  .case-page-header { padding: calc(56px + 3rem) 0 0.75rem; margin-bottom: 0; display: flex; align-items: center; justify-content: space-between; }
+  .case-page-back { font-family: var(--head); font-weight: 600; font-size: 0.8rem; color: var(--faint); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; }
+  .case-page-back:hover { color: var(--mid); }
+  .case-nav { display: flex; align-items: center; justify-content: space-between; padding: 2rem 0; margin-top: 2rem; }
+  .case-nav-eyebrow { font-family: var(--head); font-weight: 600; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); display: block; }
+  .case-nav a { font-family: var(--head); font-weight: 400; font-size: 0.9rem; color: var(--blue); text-decoration: none; display: flex; flex-direction: column; gap: 0.2rem; }
+  .case-nav a:hover { color: var(--red); }
+  .case-nav .spacer { flex: 1; }
+
+  /* Summary cards on home page */
+  .summary-grid { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .summary-card { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+  .summary-card:last-child { border-bottom: none; }
+  .summary-card.reverse { direction: rtl; }
+  .summary-card.reverse > * { direction: ltr; }
+  .summary-card-img { width: 100%; border-radius: 8px; overflow: hidden; }
+  .summary-card-img img { width: 100%; display: block; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
+  .summary-card-label { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.5rem; }
+  .summary-card-title { font-family: var(--head); font-weight: 800; font-size: clamp(1.6rem,3vw,2.2rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--blue); margin-bottom: 1rem; }
+  .summary-card-desc { font-size: 1rem; color: var(--mid); line-height: 1.75; margin-bottom: 1.5rem; }
+  .summary-card-link { display: inline-block; font-family: var(--head); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--bg); background: var(--blue); padding: 0.6rem 1.25rem; border-radius: 4px; text-decoration: none; transition: background 0.2s; }
+  .summary-card-link:hover { background: var(--red); }
+  @media(max-width:780px) {
+    .summary-card, .summary-card.reverse { grid-template-columns: 1fr; direction: ltr; gap: 2rem; }
+    .case-nav { flex-wrap: wrap; gap: 1rem; }
+  }
+
+
+  /* I made this: the opener borrows Recipe Book's own look (warm paper, ink, italic serif, the orange it uses for choices) */
+  :root { --rb-paper:#FBF8F2; --rb-oat:#EFE9DF; --rb-ink:#1A1A1A; --rb-muted:#5F5A52; --rb-choice:#E36A1C; --rb-serif:'Newsreader', Georgia, serif; }
+  .made { background: var(--rb-paper); border-bottom: 1px solid var(--rule); padding: calc(56px + 2.5rem) max(2rem,6vw) 4rem; }
+  .made-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.15fr); gap: 4rem; align-items: center; }
+  .made-copy { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+  .made-tag { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rb-muted); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .made-tag span { background: var(--rb-choice); color: var(--rb-ink); letter-spacing: 0.08em; padding: 0.35rem 0.85rem; border-radius: 999px; }
+  .made-title { display: flex; align-items: center; gap: 1rem; }
+  .made-illo { flex: none; display: inline-flex; }
+  .made-illo svg { width: 84px; height: 84px; }
+  .made h1 { font-family: var(--rb-serif); font-style: italic; font-weight: 500; color: var(--rb-ink); font-size: clamp(3rem,7vw,5.25rem); line-height: 1; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+  .made-lede { font-size: 1.15rem; line-height: 1.6; color: var(--rb-ink); max-width: 34rem; }
+  .made-facts { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.95rem; color: var(--rb-muted); padding-top: 1rem; border-top: 1px solid var(--rule); }
+  .made-facts b { display: inline-block; min-width: 6.5rem; font-family: var(--head); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rb-ink); }
+  .made-links { font-size: 0.95rem; color: var(--rb-muted); font-style: italic; }
+  .made-links .summary-card-link { font-style: normal; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .made-img img { width: 100%; display: block; border-radius: 12px; cursor: pointer; }
+  .made .case-page-back { align-self: flex-start; }
+  .case-page { padding-top: 4rem; }
+  .quote-card { background: var(--rb-paper); border-radius: 12px; padding: 1.75rem; margin-bottom: 1.5rem; }
+  .quote-card .img-quote { font-family: var(--rb-serif); font-style: italic; font-weight: 500; font-size: clamp(1.3rem,2.4vw,1.6rem); line-height: 1.25; margin-bottom: 0.75rem; }
+  .quote-src { font-size: 0.85rem; color: var(--mid); }
+  .flow-wrap { margin-top: 1.5rem; overflow-x: auto; background: var(--off); border-radius: 12px; padding: 1.5rem; }
+  .flow-wrap svg { display: block; width: 100%; min-width: 720px; height: auto; }
+  .flow-wrap + .stack-list { margin-top: 1.75rem; }
+  .tbl-wrap { overflow-x: auto; }
+  table.tools { width: 100%; border-collapse: collapse; font-size: 0.92rem; line-height: 1.5; }
+  table.tools th, table.tools td { text-align: left; vertical-align: top; padding: 0.85rem 0.75rem; border-bottom: 1px solid var(--rule); }
+  table.tools thead th { font-family: var(--head); font-weight: 700; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); border-bottom: 2px solid var(--blue); }
+  table.tools tbody th { font-family: var(--head); font-weight: 700; color: var(--ink); white-space: nowrap; }
+  ol.stages { list-style: none; counter-reset: st; display: flex; flex-direction: column; gap: 0.7rem; margin: 0.25rem 0 1.1rem; }
+  ol.stages li { counter-increment: st; position: relative; padding-left: 2.25rem; line-height: 1.6; }
+  ol.stages li::before { content: counter(st); position: absolute; left: 0; top: 0.1rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--rb-oat); font-family: var(--rb-serif); font-style: italic; font-weight: 500; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; }
+  ol.stages b { font-weight: 700; }
+  .img-frame-pair img, .img-frame img { cursor: pointer; }
+  .case-flow ul + p { margin-top: 1rem; }
+  .stats { margin-top: 0; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  @media (max-width:780px) {
+    .made-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .made { padding-top: calc(56px + 1.5rem); padding-bottom: 3rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  /* Solar Check: the opener borrows the app's own look (Sun block: orange, tint, ink, Space Grotesk) */
+  :root { --sc-sun:#FF8A3D; --sc-deep:#E25A0E; --sc-tint:#FFF1E6; --sc-strong:#FFE2CC; --sc-ink:#1A120B; --sc-muted:#5A4A3D; --sc-display:'Space Grotesk', system-ui, sans-serif; }
+  .made.solar { background: var(--sc-tint); }
+  .solar .made-tag { color: var(--sc-muted); }
+  .solar .made-tag span { background: var(--sc-sun); color: var(--sc-ink); }
+  .solar h1 { font-family: var(--sc-display); font-style: normal; font-weight: 700; color: var(--sc-ink); letter-spacing: -0.03em; font-size: clamp(2.5rem,5.2vw,4.25rem); }
+  .solar .made-illo svg { width: 64px; height: 64px; }
+  .solar .made-lede, .solar .made-facts b { color: var(--sc-ink); }
+  .solar .made-facts, .solar .made-links { color: var(--sc-muted); }
+  .solar-page .quote-card { background: var(--sc-tint); }
+  .solar-page .quote-card .img-quote { font-family: var(--sc-display); font-style: normal; font-weight: 700; letter-spacing: -0.01em; }
+  .solar-page ol.stages li::before { background: var(--sc-strong); font-family: var(--sc-display); font-style: normal; font-weight: 700; font-size: 0.85rem; }
+  .solar-page ol.stages li.parked::before { background: var(--off); color: var(--faint); }
+  .sample-note { font-size: 0.85rem; color: var(--mid); font-style: italic; margin-top: 0.5rem; }
+</style>
+  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCG972TZXF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-JCG972TZXF');
+</script>
+</head>
+<body>
+<nav>
+  <a href="index.html#hero" class="nav-name">Simon Hodgon</a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">Case studies</a></li>
+    <li><a href="index.html#about">Capabilities</a></li>
+    <li><a href="index.html#other">Other work</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+<header class="made solar">
+  <div class="made-inner">
+    <div class="made-copy">
+      <a href="index.html" class="case-page-back">&#8592; Back to portfolio</a>
+      <p class="made-tag"><span>Working with AI</span> Personal project &middot; 2026</p>
+      <div class="made-title">
+        <span class="made-illo"><svg aria-hidden="true" width="64" height="64" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#FF8A3D"/><circle cx="12" cy="12" r="5" fill="#1A120B"/></svg></span>
+        <h1>Solar Check</h1>
+      </div>
+      <p class="made-lede">An app that tells me how my rooftop solar is really doing, by comparing every hour, day, week, month and year with the same dates in other years and allowing for the weather. As with Recipe Book, I set the direction, made the decisions and tested every step, and AI did the production.</p>
+      <ul class="made-facts">
+        <li><b>Role</b> Designer, product owner and QA</li>
+        <li><b>Tools</b> Claude, Claude Code</li>
+        <li><b>Built with</b> React, GitHub, Vercel, Supabase, Sungrow iSolarCloud API, Open-Meteo</li>
+      </ul>
+      <p class="made-links"><a href="https://solar-yield.vercel.app" class="summary-card-link" target="_blank" rel="noopener">See the live app<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+    </div>
+    <div class="made-img"><img src="images/solar-hero.webp" alt="Solar Check on a phone: yesterday's total with the weather, October so far, and this week, each compared with last year and with typical for mid spring" onclick="openModal(this)"></div>
+  </div>
+</header>
+
+<div class="case-page solar-page">
+  <div class="case-flow">
+
+    <div class="case-block-text">
+      <p class="cl">Why I made it</p>
+      <p>We put solar panels on the roof at the end of 2025, just as a new house started going up to the north of us. I wanted to know two things: whether the panels were doing as well as they should, and whether the new house would start to shade them once it reached full height.</p>
+      <p>The manufacturer's app shows what the panels made, but not whether that's good. A dull October will always look worse than a sunny one, and it can't put this October next to last October on the same dates. Without that, there's no way to tell a poor month from a cloudy one, or a cloudy one from a shading problem.</p>
+      <p>It was also a second test of working with AI. Recipe Book was about capturing messy content. This one was about data: being honest with numbers, and building on someone else's API with real limits.</p>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">From a script to a product</p>
+        <p>It started as a conversation with Claude. Before the house got any higher, I wanted a baseline for the panels on clear days. We worked out how much they should make for the height of the sun, and how far below that counts as a problem. Mid-July, with the sun at its lowest, turned out to be the window where any new shading would show first.</p>
+        <p>That became a Python script that signed in to Sungrow's API and drew a dashboard on my laptop. It worked, but only on my laptop, only when I remembered to run it. So I wrote a build brief to turn it into a hosted app, with the script as the reference: Claude Code ported its tested behaviour rather than guessing at an undocumented API again.</p>
+      </div>
+      <div class="case-block-img">
+        <div class="quote-card">
+          <p class="img-quote">Was that a bad month, or just a cloudy one?</p>
+          <p class="quote-src">The question the manufacturer&rsquo;s app couldn&rsquo;t answer</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">Defining a fair comparison</p>
+        <p>Before any screens, I wrote the rules every number has to follow. They're the heart of the product, and having them in writing meant every chart and figure agreed with every other.</p>
+        <ul>
+          <li><strong>Same dates every year.</strong> October so far is compared with 1 to 25 October in other years, never the whole month.</li>
+          <li><strong>Stop at yesterday.</strong> Today is always labelled &ldquo;so far&rdquo; and never goes into a comparison.</li>
+          <li><strong>Show what's missing.</strong> Days without data are counted and shown, never quietly treated as zero.</li>
+          <li><strong>Typical for the time of year.</strong> An average of the weeks either side across other years, in plain words: &ldquo;vs typical for mid spring&rdquo;.</li>
+          <li><strong>No ranking of years.</strong> I tried it and it wasn't much use, so it went.</li>
+        </ul>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/solar-compare.webp" alt="Solar Check on desktop: October so far, 1,068 kWh, up 9.4% on the same dates last year and up 3.0% on typical for mid spring, with panel performance up 4.1%" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">One big figure, then how it compares. Screens show sample data</p>
+      </div>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">A design system first</p>
+        <p>I gave Claude some stimulus, mainly the simple, modern feel of Wise, with orange as the primary colour, and had it mock up a range of directions. I chose &ldquo;Sun block&rdquo;: a solid orange block for the headline figure, soft orange-tinted cards around it, and Space Grotesk for the numbers. It was written up as a design system with tokens before the dashboard was built, and the app's theme reads from those tokens.</p>
+        <p>Using the app every day shaped the detail over four review rounds:</p>
+        <ul>
+          <li><strong>Bars run across.</strong> Rows down the page work on a phone and leave room for a weather icon on each day.</li>
+          <li><strong>One scale for all time.</strong> Every chart's scale is fixed across the whole history, so a good day always looks the same size.</li>
+          <li><strong>Nothing jumps.</strong> The orange block and the readout box keep one height whatever you tap, so the page never shifts under your thumb.</li>
+          <li><strong>Colour that means something.</strong> Up and down always carry an arrow and a sign, and the comparison tiles turn sky blue for sunny periods.</li>
+        </ul>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/solar-design-system.webp" alt="Solar Check design system: colour tokens from sun orange to ink, an ordered ramp for earlier years, Space Grotesk and Inter type, and components including the orange hero block, comparison tiles, the live panel, period tabs and a row chart" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">Colour, type and components from the Sun block design system</p>
+      </div>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">Weather explains, never excuses</p>
+        <p>Comparing with last year still doesn't answer the real question, because last October might have been sunnier. So the app brings in the weather for Bexley every night: sunshine, cloud, rain and the solar radiation that actually reached the ground.</p>
+        <p>That made a third headline figure possible. <strong>Panel performance</strong> divides what the panels made by the sun that reached them, and compares that with the same dates in other years. Around 0% means the weather explains the total. Clearly below on sunny days points to shade, dirt or a fault, which is exactly what I want to catch when the house next door is finished.</p>
+        <p>A figure like that needs to earn trust, so &ldquo;What this means&rdquo; shows the working, with the sums and where the sun figure comes from, including its limits.</p>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame-pair">
+          <img src="images/solar-day.webp" alt="Day view on a phone: 36.9 kWh, partly cloudy with 4.5 hours of sunshine, down on last year and on typical, but panel performance up 9.9%" onclick="openModal(this)">
+          <img src="images/solar-performance.webp" alt="What this means: the sun that reached Bexley, what the panels made, the yield for each unit of sun against the usual for these dates, and the difference" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">A cloudy day that the panels handled well, and the working behind it</p>
+      </div>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">Building on a real API</p>
+        <p>Recipe Book's hardest problems were in the design. Here, some of the hardest were in the plumbing, and they shaped decisions I wouldn't otherwise have had to make.</p>
+        <ul>
+          <li><strong>Slow answers.</strong> The first connection check timed out. Moving the server to Sydney and checking in small steps fixed it.</li>
+          <li><strong>A request limit.</strong> Fetching the full history hit Sungrow's hourly limit, so the app now stops cleanly and carries on later from where it stopped.</li>
+          <li><strong>Public, without the cost.</strong> Anyone can look, so visitors share one live copy of today's figures, refreshed at most every five minutes, and can never use up my limit.</li>
+          <li><strong>Honest when things fail.</strong> If Sungrow doesn't answer, or you're offline, the app says so and shows the last figures it had, with the time.</li>
+        </ul>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/solar-today.webp" alt="Today on a phone: 41.3 kWh so far, with comparisons marked Not yet until the day is over, and typical for the date shown instead" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">Today stays &ldquo;so far&rdquo;: comparisons wait until the day is over</p>
+      </div>
+    </div>
+
+    <div class="case-block-text">
+      <p class="cl">How it's built</p>
+      <p>The stack is the same as Recipe Book's, which meant I could reuse what I'd learned, and even the same database projects, with Solar Check's tables kept apart from the recipes.</p>
+      <div class="flow-wrap"><svg viewBox="0 0 1000 430" role="img" aria-label="How Solar Check is built. Sungrow iSolarCloud supplies the panels' figures and Open-Meteo the weather for Bexley. Vercel runs a nightly sync that saves the day's figures and weather to Supabase, and keeps one shared live copy of today's figures, refreshed at most every five minutes. Supabase holds the history, readable by anyone, changeable only by me. The app reads from Supabase and the live copy. I brief, decide, review and test at every step."><title>How Solar Check is built</title><defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4a4a4a"/></marker></defs><rect x="0" y="0" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Sungrow iSolarCloud</text><text x="16" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">The panels’ figures, by day,</text><text x="16" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">hour and five minutes</text><rect x="0" y="158" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Open-Meteo</text><text x="16" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Sunshine, cloud and solar</text><text x="16" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">radiation for Bexley</text><rect x="340" y="79" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="356" y="109" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Vercel</text><text x="356" y="133" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Nightly sync, and one shared</text><text x="356" y="153" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">live copy every five minutes</text><rect x="680" y="0" width="320" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="696" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Supabase</text><text x="696" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">History and weather. Anyone can</text><text x="696" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">read it, only I can change it</text><rect x="680" y="158" width="320" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="696" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">The app</text><text x="696" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Day, week, month and year,</text><text x="696" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">on a phone or a desktop</text><path d="M250 59H295V118H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="290" y="50" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">yield</text><path d="M250 217H295V158H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="290" y="250" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">weather</text><path d="M590 118H630V59H670" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="650" y="50" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">saves</text><path d="M840 118V148" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><path d="M590 158H630V217H670" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="630" y="250" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">live</text><rect x="0" y="316" width="1000" height="100" rx="12" fill="#c0392b"/><text x="24" y="352" font-family="Nunito, sans-serif" font-weight="800" font-size="18" fill="#ffffff">Me, at every step</text><text x="24" y="380" font-family="Nunito, sans-serif" font-size="15" fill="#ffffff">The rules, the brief, design direction, reviews and testing against the iSolarCloud app. Claude Code builds each stage.</text></svg></div>
+      <ul class="stack-list">
+        <li><strong>GitHub</strong> holds the code. Each stage is built on its own branch and merged once I've tested it.</li>
+        <li><strong>Vercel</strong> hosts the app and runs the nightly sync. Every branch gets its own preview address to test on my phone.</li>
+        <li><strong>Supabase</strong> stores the history and weather. Row level security means anyone can read the history but only my account can change anything, and settings stay private.</li>
+        <li><strong>Sungrow's API keys</strong> live only on the server, never in the browser or the code.</li>
+      </ul>
+    </div>
+
+    <div class="case-block-row">
+      <div>
+        <p class="cl">Six stages, one parked</p>
+        <p>As with Recipe Book, the build brief ran in stages, each finished, deployed and tested by me before the next started. I checked figures against the manufacturer's app at each step.</p>
+        <ol class="stages">
+          <li><b>Foundations and sign-in.</b></li>
+          <li><b>Connecting to Sungrow.</b> The full history, and a sync every night.</li>
+          <li><b>The dashboard.</b> Day, week, month and year, and today's live figures.</li>
+          <li><b>Weather and panel performance.</b></li>
+          <li class="parked"><b>Shading watch, parked.</b> With the house not yet at full height and the data already being kept, I decided it could wait.</li>
+          <li><b>Public and polished.</b> Read only for visitors, installable on a phone, and clear about loading and offline.</li>
+        </ol>
+        <p>Parking a stage was a design decision too. Everything it needs is being stored, so it can be built when there's something to find.</p>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/solar-each-year.webp" alt="25 October in each year, with yield and weather for each year, and a running total through the day against last year and typical" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">The same date in every year, with the weather for each</p>
+      </div>
+    </div>
+
+    <div class="case-block-text">
+      <p class="cl">What I learned</p>
+      <ul>
+        <li><strong>Write the rules before the screens.</strong> With data, the design starts with what a fair number is. Getting that in writing kept every view consistent.</li>
+        <li><strong>Real data pushes back.</strong> API limits and timeouts weren't edge cases, they shaped how the app works for visitors.</li>
+        <li><strong>Use it, then design it.</strong> Most of the best refinements came from living with the app on my phone, not from the first mock-ups.</li>
+        <li><strong>Knowing when to stop is part of the job.</strong> AI makes building cheap, which makes deciding what not to build matter more.</li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="case-more-label">More screens</p>
+      <div class="img-frame-pair">
+        <img src="images/solar-year-desktop.webp" alt="Year view on desktop: 2026 to date by month against 2025, the year to date in each year, and a running total" onclick="openModal(this)">
+        <img src="images/solar-day-desktop.webp" alt="Day view on desktop: each hour against the same date last year, with the weather for each hour" onclick="openModal(this)">
+      </div>
+      <p class="sample-note">All screens show sample data.</p>
+    </div>
+  </div>
+
+  <div class="case-nav">
+    <a href="case-recipe-book.html"><span class="case-nav-eyebrow">Previous</span>&#8592; Recipe Book</a>
+    <span class="spacer"></span>
+    <a href="index.html#work"><span class="case-nav-eyebrow">Back to</span>All case studies &#8594;</a>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="container">
+    <span class="dr" style="display:block;text-align:center;margin-bottom:1.5rem;">* * * * *</span>
+    <span class="eyebrow" style="display:block;margin-bottom:0.5rem;text-align:center;">Get in touch</span>
+    <h2 style="text-align:center;margin-bottom:1.75rem;">Let&rsquo;s work <span class="b">together</span></h2>
+    <div class="footer-links">
+      <a href="tel:0404613513">0404 613 513</a>
+      <a href="mailto:shodgon@gmail.com">shodgon@gmail.com</a>
+      <a href="https://www.linkedin.com/in/simon-hodgon-64b7b92" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<div class="img-modal" id="imgModal" onclick="closeModal()" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="img-modal-close" onclick="closeModal()" aria-label="Close image" role="button">&times;</button>
+  <img id="modalImg" src="" alt="Enlarged view">
+</div>
+<script>
+function openModal(el) {
+  document.getElementById('modalImg').src = el.src;
+  document.getElementById('modalImg').alt = el.alt || 'Enlarged view';
+  document.getElementById('imgModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('imgModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>
