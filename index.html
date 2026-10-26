@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simon Hodgon | Senior UX & Product Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300&family=Newsreader:ital,opsz,wght@1,6..72,500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 <style>
   :root {
     --blue:  #1a6bb5;
@@ -197,17 +197,31 @@
   .ow-img-pair img:hover { opacity: 0.85; }
 
 
-  /* I made this: Recipe Book feature, in the app's own look */
-  #made { background: #FBF8F2; border-bottom: 1px solid var(--rule); padding: 4.5rem 0; }
-  .made-feature { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.15fr); gap: 4rem; align-items: center; }
-  .made-tag { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: #5F5A52; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-  .made-tag span { background: #E36A1C; color: #1A1A1A; letter-spacing: 0.08em; padding: 0.35rem 0.85rem; border-radius: 999px; }
-  .made-title { display: flex; align-items: center; gap: 0.9rem; margin: 1.25rem 0 1rem; }
-  .made-title h2 { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-weight: 500; color: #1A1A1A; font-size: clamp(2.6rem,6vw,4.25rem); line-height: 1; letter-spacing: -0.015em; }
-  .made-desc { font-size: 1.05rem; line-height: 1.7; color: #1A1A1A; margin-bottom: 1.5rem; }
-  .made-meta { font-size: 0.9rem; color: #5F5A52; margin-bottom: 1.75rem; }
-  .made-img img { width: 100%; display: block; border-radius: 12px; }
-  @media (max-width:780px) { .made-feature { grid-template-columns: 1fr; gap: 2.5rem; } #made { padding: 3.5rem 0; } }
+  /* Working with AI: two personal projects, each card in its app's own look */
+  #made { background: var(--off); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 4.5rem 0; }
+  .made-head { max-width: 46rem; margin-bottom: 2.5rem; }
+  .made-tag { font-family: var(--head); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+  .made-tag span { background: var(--ink); color: var(--bg); letter-spacing: 0.08em; padding: 0.35rem 0.85rem; border-radius: 999px; }
+  .made-head h2 { margin: 0 0 0.75rem; }
+  .made-intro { font-size: 1.05rem; line-height: 1.7; color: var(--mid); }
+  .made-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 2rem; }
+  .made-card { border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+  .made-card.rb { background: #FBF8F2; }
+  .made-card.sc { background: #FFF1E6; }
+  .made-card-img img { width: 100%; display: block; aspect-ratio: 1410 / 964; object-fit: cover; }
+  .made-card-body { padding: 1.75rem 1.75rem 2rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+  .made-card-body p { font-size: 1rem; line-height: 1.7; color: #1A1A1A; flex: 1; }
+  .made-card .summary-card-link { align-self: flex-start; }
+  .made-title { display: flex; align-items: center; gap: 0.8rem; }
+  .made-title svg { display: block; }
+  .rb .made-title svg { width: 56px; height: 56px; }
+  .made-card h3 { color: #1A1A1A; line-height: 1; font-size: clamp(2rem,3.4vw,2.6rem); }
+  .rb h3 { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-weight: 500; letter-spacing: -0.015em; }
+  .sc h3 { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 700; letter-spacing: -0.03em; }
+  .work-more { padding-top: 0; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  a:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  @media (max-width:780px) { .made-grid { grid-template-columns: 1fr; } #made { padding: 3.5rem 0; } }
 </style>
   <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -253,19 +267,6 @@
     </div>
   </div>
 </div>
-<section id="made">
-  <div class="container">
-    <div class="made-feature">
-      <div>
-        <p class="made-tag"><span>Working with AI</span> Personal project &middot; 2026</p>
-        <div class="made-title"><span aria-hidden="true"><svg aria-hidden="true" width="72" height="72" viewBox="0 0 80 80"><defs><pattern id="cdots" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.1" fill="#1A1A1A"/></pattern><clipPath id="cdotsc"><path d="M6 40h52v6a20 12 0 0 1-20 12h-12a20 12 0 0 1-20-12z"/></clipPath></defs><g transform="translate(0,-8)"><ellipse cx="34" cy="64" rx="26" ry="3.5" fill="#1A1A1A"/><path d="M57 40l18-8" stroke="#1A1A1A" stroke-width="7" stroke-linecap="round"/><path d="M6 40h52v6a20 12 0 0 1-20 12h-12a20 12 0 0 1-20-12z" fill="#6FB3E8" stroke="#1A1A1A" stroke-width="3" stroke-linejoin="round"/><rect x="34" y="38" width="26" height="22" fill="url(#cdots)" opacity=".35" clip-path="url(#cdotsc)"/><ellipse cx="32" cy="40" rx="26" ry="9" fill="#1A1A1A"/><path d="M18 40c0-6 8-8 13-6 5-4 14-2 14 3 4 1 4 6-1 7-4 3-12 3-15 1-6 1-11-1-11-5z" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2.2" stroke-linejoin="round"/><circle cx="32" cy="38" r="5" fill="#F2D35B" stroke="#1A1A1A" stroke-width="2.2"/><path d="M24 26c-2-4 2-6 0-10M34 24c-2-4 2-6 0-10" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" fill="none"/></g></svg></span><h2>Recipe Book</h2></div>
-        <p class="made-desc">A web app I designed and built in collaboration with AI. I set the strategy and direction, made the decisions and tested every step. AI did the production, from screens to code to the live site.</p>
-        <a href="case-recipe-book.html" class="summary-card-link">See how we did it</a>
-      </div>
-      <div class="made-img"><img src="images/recipe-hero.webp" alt="Recipe Book on a phone: the recipe library, a recipe page and cook mode"></div>
-    </div>
-  </div>
-</section>
 <section id="work">
   <div class="container">
     <div class="sh">
@@ -286,6 +287,39 @@
           <a href="case-toll-relief.html" class="summary-card-link">View case study</a>
         </div>
       </div>
+
+    </div>
+  </div>
+</section>
+<section id="made" aria-labelledby="made-h">
+  <div class="container">
+    <div class="made-head">
+      <h2 id="made-h">Working <span class="b">with AI</span></h2>
+      <p class="made-intro">Two web apps designed and built in close collaboration with AI, from first idea to live product. Working in short loops of brief, design, build and test, trading ideas and challenging each other&rsquo;s thinking until each one was ready to use every day.</p>
+    </div>
+    <div class="made-grid">
+      <article class="made-card rb">
+        <a href="case-recipe-book.html" class="made-card-img" tabindex="-1" aria-hidden="true"><img src="images/recipe-hero.webp" alt=""></a>
+        <div class="made-card-body">
+          <div class="made-title"><span aria-hidden="true"><svg aria-hidden="true" width="72" height="72" viewBox="0 0 80 80"><defs><pattern id="cdots" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.1" fill="#1A1A1A"/></pattern><clipPath id="cdotsc"><path d="M6 40h52v6a20 12 0 0 1-20 12h-12a20 12 0 0 1-20-12z"/></clipPath></defs><g transform="translate(0,-8)"><ellipse cx="34" cy="64" rx="26" ry="3.5" fill="#1A1A1A"/><path d="M57 40l18-8" stroke="#1A1A1A" stroke-width="7" stroke-linecap="round"/><path d="M6 40h52v6a20 12 0 0 1-20 12h-12a20 12 0 0 1-20-12z" fill="#6FB3E8" stroke="#1A1A1A" stroke-width="3" stroke-linejoin="round"/><rect x="34" y="38" width="26" height="22" fill="url(#cdots)" opacity=".35" clip-path="url(#cdotsc)"/><ellipse cx="32" cy="40" rx="26" ry="9" fill="#1A1A1A"/><path d="M18 40c0-6 8-8 13-6 5-4 14-2 14 3 4 1 4 6-1 7-4 3-12 3-15 1-6 1-11-1-11-5z" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2.2" stroke-linejoin="round"/><circle cx="32" cy="38" r="5" fill="#F2D35B" stroke="#1A1A1A" stroke-width="2.2"/><path d="M24 26c-2-4 2-6 0-10M34 24c-2-4 2-6 0-10" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" fill="none"/></g></svg></span><h3>Recipe Book</h3></div>
+          <p>Recipes from anywhere, captured by AI into one clean format, scaled for any number and turned into a shopping list grouped the way I shop. Designing for what happens when the AI isn&rsquo;t sure.</p>
+          <a href="case-recipe-book.html" class="summary-card-link">See how we did it<span class="visually-hidden">: Recipe Book</span></a>
+        </div>
+      </article>
+      <article class="made-card sc">
+        <a href="case-solar-check.html" class="made-card-img" tabindex="-1" aria-hidden="true"><img src="images/solar-hero.webp" alt=""></a>
+        <div class="made-card-body">
+          <div class="made-title"><span aria-hidden="true"><svg width="44" height="44" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#FF8A3D"/><circle cx="12" cy="12" r="5" fill="#1A120B"/></svg></span><h3>Solar Check</h3></div>
+          <p>How my rooftop solar is really doing: every hour, day, week, month and year compared fairly with other years, allowing for the weather. Designing for honest numbers on a real API.</p>
+          <a href="case-solar-check.html" class="summary-card-link">See how we did it<span class="visually-hidden">: Solar Check</span></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="work-more" aria-label="More case studies">
+  <div class="container">
+    <div class="summary-grid">
 
       <div class="summary-card reverse">
         <div class="summary-card-img">
@@ -437,8 +471,7 @@
 <footer id="contact">
   <div class="container">
     <span class="dr" style="display:block;text-align:center;margin-bottom:1.5rem;">* * * * *</span>
-    <span class="eyebrow" style="display:block;margin-bottom:0.5rem;text-align:center;">Get in touch</span>
-    <h2 style="text-align:center;margin-bottom:1.75rem;">Let&rsquo;s work <span class="b">together</span></h2>
+    <h2 style="text-align:center;margin-bottom:1.75rem;">Contact <span class="b">me</span></h2>
     <div class="footer-links">
       <a href="tel:0404613513">0404 613 513</a>
       <a href="mailto:shodgon@gmail.com">shodgon@gmail.com</a>
