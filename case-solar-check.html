@@ -285,12 +285,11 @@
   <div class="made-inner">
     <div class="made-copy">
       <a href="index.html" class="case-page-back">&#8592; Back to portfolio</a>
-      <p class="made-tag"><span>Working with AI</span> Personal project &middot; 2026</p>
       <div class="made-title">
         <span class="made-illo"><svg aria-hidden="true" width="64" height="64" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#FF8A3D"/><circle cx="12" cy="12" r="5" fill="#1A120B"/></svg></span>
         <h1>Solar Check</h1>
       </div>
-      <p class="made-lede">An app that tells me how my rooftop solar is really doing, by comparing every hour, day, week, month and year with the same dates in other years and allowing for the weather. As with Recipe Book, I set the direction, made the decisions and tested every step, and AI did the production.</p>
+      <p class="made-lede">An app that tells me how my rooftop solar is really doing, by comparing every hour, day, week, month and year with the same dates in other years and allowing for the weather. As with Recipe Book, it was built in close collaboration with AI, in short loops of brief, design, build and test.</p>
       <ul class="made-facts">
         <li><b>Role</b> Designer, product owner and QA</li>
         <li><b>Tools</b> Claude, Claude Code</li>
@@ -307,15 +306,15 @@
 
     <div class="case-block-text">
       <p class="cl">Why I made it</p>
-      <p>We put solar panels on the roof at the end of 2025, just as a new house started going up to the north of us. I wanted to know two things: whether the panels were doing as well as they should, and whether the new house would start to shade them once it reached full height.</p>
+      <p>We put solar panels on the roof at the end of 2025, just as a new house started going up to the north of us. I wanted to know two things: whether the panels were doing as well as they should, and whether the new development next door would start to shade them once it reached full height.</p>
       <p>The manufacturer's app shows what the panels made, but not whether that's good. A dull October will always look worse than a sunny one, and it can't put this October next to last October on the same dates. Without that, there's no way to tell a poor month from a cloudy one, or a cloudy one from a shading problem.</p>
-      <p>It was also a second test of working with AI. Recipe Book was about capturing messy content. This one was about data: being honest with numbers, and building on someone else's API with real limits.</p>
+      <p>It was also a second test of working with AI. Recipe Book was about capturing and presenting messy content. This one was about data: being honest with numbers, and building on someone else's API with real limits.</p>
     </div>
 
     <div class="case-block-row">
       <div>
         <p class="cl">From a script to a product</p>
-        <p>It started as a conversation with Claude. Before the house got any higher, I wanted a baseline for the panels on clear days. We worked out how much they should make for the height of the sun, and how far below that counts as a problem. Mid-July, with the sun at its lowest, turned out to be the window where any new shading would show first.</p>
+        <p>It started as a conversation with Claude. Before the development got any higher, I wanted a baseline for the panels on clear days. We worked out how much they should make for the height of the sun, and how far below that counts as a problem. Mid-July, with the sun at its lowest, turned out to be the window where any new shading would show first.</p>
         <p>That became a Python script that signed in to Sungrow's API and drew a dashboard on my laptop. It worked, but only on my laptop, only when I remembered to run it. So I wrote a build brief to turn it into a hosted app, with the script as the reference: Claude Code ported its tested behaviour rather than guessing at an undocumented API again.</p>
       </div>
       <div class="case-block-img">
@@ -331,9 +330,9 @@
         <p class="cl">Defining a fair comparison</p>
         <p>Before any screens, I wrote the rules every number has to follow. They're the heart of the product, and having them in writing meant every chart and figure agreed with every other.</p>
         <ul>
-          <li><strong>Same dates every year.</strong> October so far is compared with 1 to 25 October in other years, never the whole month.</li>
-          <li><strong>Stop at yesterday.</strong> Today is always labelled &ldquo;so far&rdquo; and never goes into a comparison.</li>
-          <li><strong>Show what's missing.</strong> Days without data are counted and shown, never quietly treated as zero.</li>
+          <li><strong>Same dates every year.</strong> A month in progress is compared with the same dates in other years, never the whole month.</li>
+          <li><strong>Stop at yesterday.</strong> Today is always labelled &ldquo;so far&rdquo; and isn&rsquo;t compared until the day is over.</li>
+          <li><strong>Show what's missing.</strong> Days without data are counted and shown, never treated as zero.</li>
           <li><strong>Typical for the time of year.</strong> An average of the weeks either side across other years, in plain words: &ldquo;vs typical for mid spring&rdquo;.</li>
           <li><strong>No ranking of years.</strong> I tried it and it wasn't much use, so it went.</li>
         </ul>
@@ -349,14 +348,7 @@
     <div class="case-block-row">
       <div>
         <p class="cl">A design system first</p>
-        <p>I gave Claude some stimulus, mainly the simple, modern feel of Wise, with orange as the primary colour, and had it mock up a range of directions. I chose &ldquo;Sun block&rdquo;: a solid orange block for the headline figure, soft orange-tinted cards around it, and Space Grotesk for the numbers. It was written up as a design system with tokens before the dashboard was built, and the app's theme reads from those tokens.</p>
-        <p>Using the app every day shaped the detail over four review rounds:</p>
-        <ul>
-          <li><strong>Bars run across.</strong> Rows down the page work on a phone and leave room for a weather icon on each day.</li>
-          <li><strong>One scale for all time.</strong> Every chart's scale is fixed across the whole history, so a good day always looks the same size.</li>
-          <li><strong>Nothing jumps.</strong> The orange block and the readout box keep one height whatever you tap, so the page never shifts under your thumb.</li>
-          <li><strong>Colour that means something.</strong> Up and down always carry an arrow and a sign, and the comparison tiles turn sky blue for sunny periods.</li>
-        </ul>
+        <p>I gave Claude some stimulus, essentially a simple, modern and fun feel, using orange as the primary colour, and had it mock up a range of directions. I chose &ldquo;Sun block&rdquo;: a solid orange block for the headline figure, soft orange-tinted cards around it, and Space Grotesk for the numbers. It was written up as a design system with tokens before the dashboard was built, and the app's theme reads from those tokens.</p>
       </div>
       <div class="case-block-img">
         <div class="img-frame">
@@ -368,9 +360,28 @@
 
     <div class="case-block-row">
       <div>
+        <p class="cl">Rapid prototyping</p>
+        <p>Using the working app every day, with real data, shaped the detail and behaviour over four review rounds:</p>
+        <ul>
+          <li><strong>Bars run across.</strong> Rows down the page work on a phone and leave room for a weather icon on each day.</li>
+          <li><strong>One scale for all time.</strong> Every chart's scale is fixed across the whole history, so a good day always looks the same size.</li>
+          <li><strong>Nothing jumps.</strong> The orange block and the readout box keep one height whatever you tap, so the page never shifts under your thumb.</li>
+          <li><strong>Colour that means something.</strong> Up and down always carry an arrow and a sign, and the comparison tiles turn sky blue for sunny periods.</li>
+        </ul>
+      </div>
+      <div class="case-block-img">
+        <div class="img-frame">
+          <img src="images/solar-day-desktop.webp" alt="Day view on desktop: each hour against the same date last year, with the weather for each hour" onclick="openModal(this)">
+        </div>
+        <p class="img-credit">Bars run across, with the weather for each hour. The day view on desktop</p>
+      </div>
+    </div>
+
+    <div class="case-block-row">
+      <div>
         <p class="cl">Weather explains, never excuses</p>
         <p>Comparing with last year still doesn't answer the real question, because last October might have been sunnier. So the app brings in the weather for Bexley every night: sunshine, cloud, rain and the solar radiation that actually reached the ground.</p>
-        <p>That made a third headline figure possible. <strong>Panel performance</strong> divides what the panels made by the sun that reached them, and compares that with the same dates in other years. Around 0% means the weather explains the total. Clearly below on sunny days points to shade, dirt or a fault, which is exactly what I want to catch when the house next door is finished.</p>
+        <p>That made a third headline figure possible. <strong>Panel performance</strong> divides what the panels made by the sun that reached them, and compares that with the same dates in other years. Around 0% means the weather explains the total. Clearly below on sunny days points to shade, dirt or a fault, which is exactly what I want to catch when the development next door is finished.</p>
         <p>A figure like that needs to earn trust, so &ldquo;What this means&rdquo; shows the working, with the sums and where the sun figure comes from, including its limits.</p>
       </div>
       <div class="case-block-img">
@@ -404,7 +415,7 @@
     <div class="case-block-text">
       <p class="cl">How it's built</p>
       <p>The stack is the same as Recipe Book's, which meant I could reuse what I'd learned, and even the same database projects, with Solar Check's tables kept apart from the recipes.</p>
-      <div class="flow-wrap"><svg viewBox="0 0 1000 430" role="img" aria-label="How Solar Check is built. Sungrow iSolarCloud supplies the panels' figures and Open-Meteo the weather for Bexley. Vercel runs a nightly sync that saves the day's figures and weather to Supabase, and keeps one shared live copy of today's figures, refreshed at most every five minutes. Supabase holds the history, readable by anyone, changeable only by me. The app reads from Supabase and the live copy. I brief, decide, review and test at every step."><title>How Solar Check is built</title><defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4a4a4a"/></marker></defs><rect x="0" y="0" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Sungrow iSolarCloud</text><text x="16" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">The panels’ figures, by day,</text><text x="16" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">hour and five minutes</text><rect x="0" y="158" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Open-Meteo</text><text x="16" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Sunshine, cloud and solar</text><text x="16" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">radiation for Bexley</text><rect x="340" y="79" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="356" y="109" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Vercel</text><text x="356" y="133" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Nightly sync, and one shared</text><text x="356" y="153" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">live copy every five minutes</text><rect x="680" y="0" width="320" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="696" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Supabase</text><text x="696" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">History and weather. Anyone can</text><text x="696" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">read it, only I can change it</text><rect x="680" y="158" width="320" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="696" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">The app</text><text x="696" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Day, week, month and year,</text><text x="696" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">on a phone or a desktop</text><path d="M250 59H295V118H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="290" y="50" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">yield</text><path d="M250 217H295V158H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="290" y="250" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">weather</text><path d="M590 118H630V59H670" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="650" y="50" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">saves</text><path d="M840 118V148" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><path d="M590 158H630V217H670" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="630" y="250" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">live</text><rect x="0" y="316" width="1000" height="100" rx="12" fill="#c0392b"/><text x="24" y="352" font-family="Nunito, sans-serif" font-weight="800" font-size="18" fill="#ffffff">Me, at every step</text><text x="24" y="380" font-family="Nunito, sans-serif" font-size="15" fill="#ffffff">The rules, the brief, design direction, reviews and testing against the iSolarCloud app. Claude Code builds each stage.</text></svg></div>
+      <div class="flow-wrap"><svg viewBox="0 0 1000 430" role="img" aria-label="How Solar Check is built. Sungrow iSolarCloud supplies the panels' figures and Open-Meteo the weather for Bexley. Vercel runs a nightly sync that saves the day's figures and weather to Supabase, and keeps one shared live copy of today's figures, refreshed at most every five minutes. Supabase holds the history, readable by anyone, changeable only by me. The app reads from Supabase and the live copy. I work with Claude Code at every step: the rules, the brief, design direction, reviews and testing."><title>How Solar Check is built</title><defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4a4a4a"/></marker></defs><rect x="0" y="0" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Sungrow iSolarCloud</text><text x="16" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">The panels’ figures, by day,</text><text x="16" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">hour and five minutes</text><rect x="0" y="158" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="16" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Open-Meteo</text><text x="16" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Sunshine, cloud and solar</text><text x="16" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">radiation for Bexley</text><rect x="340" y="79" width="250" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="356" y="109" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Vercel</text><text x="356" y="133" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Nightly sync, and one shared</text><text x="356" y="153" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">live copy every five minutes</text><rect x="680" y="0" width="320" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="696" y="30" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">Supabase</text><text x="696" y="54" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">History and weather. Anyone can</text><text x="696" y="74" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">read it, only I can change it</text><rect x="680" y="158" width="320" height="118" rx="12" fill="#ffffff" stroke="#1a6bb5" stroke-width="2"/><text x="696" y="188" font-family="Nunito, sans-serif" font-weight="800" font-size="17" fill="#1a6bb5">The app</text><text x="696" y="212" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">Day, week, month and year,</text><text x="696" y="232" font-family="Nunito, sans-serif" font-size="13.5" fill="#4a4a4a">on a phone or a desktop</text><path d="M250 59H295V118H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="290" y="50" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">yield</text><path d="M250 217H295V158H330" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="290" y="250" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">weather</text><path d="M590 118H630V59H670" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="650" y="50" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">saves</text><path d="M840 118V148" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><path d="M590 158H630V217H670" stroke="#4a4a4a" stroke-width="2" fill="none" marker-end="url(#ah2)"/><text x="630" y="250" text-anchor="middle" font-family="Nunito, sans-serif" font-size="12.5" fill="#767676">live</text><rect x="0" y="316" width="1000" height="100" rx="12" fill="#c0392b"/><text x="24" y="352" font-family="Nunito, sans-serif" font-weight="800" font-size="18" fill="#ffffff">Me, at every step</text><text x="24" y="380" font-family="Nunito, sans-serif" font-size="15" fill="#ffffff">The rules, the brief, design direction, reviews and testing against the iSolarCloud app, working with Claude Code stage by stage.</text></svg></div>
       <ul class="stack-list">
         <li><strong>GitHub</strong> holds the code. Each stage is built on its own branch and merged once I've tested it.</li>
         <li><strong>Vercel</strong> hosts the app and runs the nightly sync. Every branch gets its own preview address to test on my phone.</li>
@@ -422,7 +433,7 @@
           <li><b>Connecting to Sungrow.</b> The full history, and a sync every night.</li>
           <li><b>The dashboard.</b> Day, week, month and year, and today's live figures.</li>
           <li><b>Weather and panel performance.</b></li>
-          <li class="parked"><b>Shading watch, parked.</b> With the house not yet at full height and the data already being kept, I decided it could wait.</li>
+          <li class="parked"><b>Shading watch, parked.</b> With the development not yet at full height and the data already being kept, I decided it could wait.</li>
           <li><b>Public and polished.</b> Read only for visitors, installable on a phone, and clear about loading and offline.</li>
         </ol>
         <p>Parking a stage was a design decision too. Everything it needs is being stored, so it can be built when there's something to find.</p>
@@ -441,15 +452,14 @@
         <li><strong>Write the rules before the screens.</strong> With data, the design starts with what a fair number is. Getting that in writing kept every view consistent.</li>
         <li><strong>Real data pushes back.</strong> API limits and timeouts weren't edge cases, they shaped how the app works for visitors.</li>
         <li><strong>Use it, then design it.</strong> Most of the best refinements came from living with the app on my phone, not from the first mock-ups.</li>
-        <li><strong>Knowing when to stop is part of the job.</strong> AI makes building cheap, which makes deciding what not to build matter more.</li>
+        <li><strong>Knowing when to stop is part of the job.</strong> AI makes building cheap and quick, which makes deciding what not to build matter more. Keeping things simple and clear still matters, so they stay understandable and useful.</li>
       </ul>
     </div>
 
     <div>
       <p class="case-more-label">More screens</p>
-      <div class="img-frame-pair">
+      <div class="img-frame">
         <img src="images/solar-year-desktop.webp" alt="Year view on desktop: 2026 to date by month against 2025, the year to date in each year, and a running total" onclick="openModal(this)">
-        <img src="images/solar-day-desktop.webp" alt="Day view on desktop: each hour against the same date last year, with the weather for each hour" onclick="openModal(this)">
       </div>
       <p class="sample-note">All screens show sample data.</p>
     </div>
